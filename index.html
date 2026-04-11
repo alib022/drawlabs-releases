@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DrawLabs — Agentic AI Workflows for Regulated Healthcare</title>
+  <meta name="description" content="Visual workflow builder combining autonomous AI agents with compliance-grade logic for HIPAA-compliant DICOM and FHIR de-identification. Build, run, ship." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="icon.png" alt="DrawLabs" width="28" height="28" />
+        <span>DrawLabs</span>
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#use-cases">Use Cases</a>
+        <a href="#download" class="nav-cta">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Floating background logo -->
+  <div class="hero-logo-bg">
+    <img src="icon.png" alt="" aria-hidden="true" />
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Alpha &mdash; Free &amp; Unlimited
+      </div>
+      <h1>
+        <span class="hero-line-1">Agentic AI meets</span>
+        <span class="hero-line-2">Regulated Compliance</span>
+      </h1>
+      <p class="hero-sub">
+        Visual workflow builder that combines <strong>autonomous AI agents</strong>,
+        <strong>LLM-powered logic</strong>, and <strong>HIPAA-grade de-identification</strong>
+        in a single drag-and-drop canvas. Built for healthcare teams
+        who need to move fast without breaking compliance.
+      </p>
+      <div class="hero-actions">
+        <a href="#download" class="btn btn-primary btn-lg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download for macOS
+        </a>
+      </div>
+
+      <!-- Animated pipeline preview -->
+      <div class="hero-pipeline">
+        <div class="pipeline-node pipeline-node-trigger">
+          <span class="pipeline-node-icon">&#9654;</span>
+          <span>Trigger</span>
+        </div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-source">
+          <span class="pipeline-node-icon">&#9729;</span>
+          <span>DICOMweb Pull</span>
+        </div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-ai">
+          <span class="pipeline-node-icon">&#10024;</span>
+          <span>AI Agent</span>
+          <span class="pipeline-node-badge">MCP</span>
+        </div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-logic">
+          <span class="pipeline-node-icon">&#128737;</span>
+          <span>DE-ID</span>
+          <span class="pipeline-node-badge">HIPAA</span>
+        </div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-output">
+          <span class="pipeline-node-icon">&#10003;</span>
+          <span>Store</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Concept -->
+  <section id="how-it-works" class="concept">
+    <div class="section-inner">
+      <div class="concept-label">The concept</div>
+      <h2 class="section-title">Two worlds, one canvas</h2>
+      <p class="section-sub">
+        Healthcare AI has a fundamental tension: you need AI to be smart and autonomous,
+        but regulations demand every step be auditable, deterministic, and compliant.
+        DrawLabs solves this by letting you wire both together visually.
+      </p>
+      <div class="concept-grid">
+        <div class="concept-card concept-card-ai">
+          <div class="concept-card-header">
+            <div class="concept-card-orb concept-card-orb-ai"></div>
+            <h3>Agentic AI Nodes</h3>
+          </div>
+          <p>Autonomous LLM agents that reason, use tools via MCP, classify data, and make decisions. They handle the parts that need intelligence.</p>
+          <div class="concept-card-tags">
+            <span>LLM</span><span>Agent</span><span>Router</span><span>LLM Chat</span><span>PHI Classifier</span>
+          </div>
+        </div>
+        <div class="concept-card-bridge">
+          <svg viewBox="0 0 80 40" width="80" height="40">
+            <path d="M10 20 H70" stroke="url(#bridgeGrad)" stroke-width="2" stroke-dasharray="4 3"/>
+            <circle cx="40" cy="20" r="6" fill="#1ea860" opacity="0.8"/>
+          </svg>
+          <svg width="0" height="0"><defs><linearGradient id="bridgeGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#1ea860"/></linearGradient></defs></svg>
+          <span>wired together</span>
+        </div>
+        <div class="concept-card concept-card-compliance">
+          <div class="concept-card-header">
+            <div class="concept-card-orb concept-card-orb-compliance"></div>
+            <h3>Compliance Logic Nodes</h3>
+          </div>
+          <p>Deterministic, auditable steps for Safe Harbor de-identification, tag stripping, pixel redaction, and data routing. They handle what regulations demand.</p>
+          <div class="concept-card-tags">
+            <span>DICOM DE-ID</span><span>FHIR DE-ID</span><span>Tracker</span><span>Safe Harbor</span><span>Human Review</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="features">
+    <div class="section-inner">
+      <div class="concept-label">Capabilities</div>
+      <h2 class="section-title">Built for the hardest healthcare data problems</h2>
+      <div class="feature-grid">
+        <div class="feature-card feature-card-hero">
+          <div class="feature-card-number">01</div>
+          <h3>DICOM De-Identification</h3>
+          <p>Three-layer pixel redaction: margin blackout + EasyOCR deep learning text detection + LLM PHI classification. Tag stripping with allowlist approach. Safe Harbor compliant with built-in LLM verification.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">02</div>
+          <h3>FHIR R4 De-Identification</h3>
+          <p>Pull patient data via $everything, de-identify all resources with consistent cross-modal ID hashing. Same hash salt as DICOM for unified patient pseudonyms.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">03</div>
+          <h3>Autonomous AI Agents</h3>
+          <p>MCP-powered agents that reason in loops, pick tools, and solve complex tasks. Grant them access to specific servers &mdash; they figure out the rest.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">04</div>
+          <h3>Resumable at Scale</h3>
+          <p>Processing millions of files? UID-based DICOM trackers pick up exactly where you left off. No re-processing, no duplicate work.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">05</div>
+          <h3>Google Healthcare API</h3>
+          <p>Native support for DICOMweb and FHIR on Google Cloud Healthcare. Service account auth &mdash; no gcloud CLI, no library dependencies.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">06</div>
+          <h3>Human-in-the-Loop</h3>
+          <p>Pause any pipeline for human review. Built-in DICOM viewer with image rendering and full tag tables. Approve, reject, or annotate before proceeding.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">07</div>
+          <h3>Schedule &amp; Watch</h3>
+          <p>Cron schedules, interval timers, and folder watchers. Enable always-on mode and pipelines run automatically in the background via macOS launchd.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">08</div>
+          <h3>Local-First &amp; Secure</h3>
+          <p>Everything on your machine. Secrets in the OS keychain. Encrypted at rest. No cloud dependency. Data never leaves unless you explicitly push it.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">09</div>
+          <h3>Headless &amp; Background Runs</h3>
+          <p>Run workflows in the background without a UI window. The app hides to the system tray while jobs continue. Attach a live monitoring window at any time to observe progress, console output, CPU/memory usage, and network activity &mdash; without disrupting the run. macOS notifications on completion or failure.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-number">10</div>
+          <h3>Voice AI</h3>
+          <p>Built-in speech-to-text (Whisper) and text-to-speech (OpenAI TTS) nodes. Speak to the help assistant to build workflows by voice. Voice Input nodes pause pipelines for live mic recording. Auto-play audio responses through system speakers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section id="use-cases" class="use-cases">
+    <div class="section-inner">
+      <div class="concept-label">Workflows</div>
+      <h2 class="section-title">What teams build with DrawLabs</h2>
+      <div class="use-case-grid">
+        <div class="use-case-card">
+          <div class="use-case-number">01</div>
+          <h3>Research Dataset Curation</h3>
+          <p>Pull from PACS, strip PHI from tags + pixels, verify with AI Safe Harbor checks, route clean files to an output folder. Run once or schedule nightly.</p>
+          <div class="use-case-flow">
+            <span>DICOMweb Pull</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>Tag DE-ID</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>LLM Check</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>Pixel DE-ID</span>
+          </div>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-number">02</div>
+          <h3>Cross-Modal Patient DE-ID</h3>
+          <p>List all patients, pull both FHIR resources and DICOM studies for each, de-identify with matching hashed IDs so records stay linked across modalities.</p>
+          <div class="use-case-flow">
+            <span>Patient List</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>FHIR + DICOM Pull</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>Parallel DE-ID</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>Store</span>
+          </div>
+        </div>
+        <div class="use-case-card">
+          <div class="use-case-number">03</div>
+          <h3>AI-Assisted Triage</h3>
+          <p>Watch a folder for incoming PDFs or DICOM files. An AI agent reads, classifies, routes to the right team, and drafts a response &mdash; with human approval before sending.</p>
+          <div class="use-case-flow">
+            <span>File Watcher</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>AI Agent</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>Router</span>
+            <span class="use-case-arrow">&rarr;</span>
+            <span>Human Review</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline Examples -->
+  <section id="examples" class="examples-section">
+    <div class="section-inner">
+      <div class="concept-label">Examples</div>
+      <h2 class="section-title">Real pipelines, built visually</h2>
+      <p class="section-sub">These workflows run in production. Drag, connect, hit run.</p>
+
+      <!-- Example 1: DICOM Block DE-ID -->
+      <div class="example-showcase">
+        <div class="example-info">
+          <div class="example-badge">Medical Imaging</div>
+          <h3>DICOM Block DE-ID Pipeline</h3>
+          <p>
+            Pull a list of patients from your PACS, then process each patient
+            in parallel using a <strong>Block</strong> node &mdash; a nested
+            sub-workflow that runs concurrently. Each block pulls the patient's
+            studies, strips PHI from tags, verifies Safe Harbor compliance via
+            LLM, redacts burned-in text with OCR, and uploads clean files to
+            a destination server. Failed files are routed to a review queue.
+          </p>
+          <ul class="example-highlights">
+            <li>Parallel patient processing (configurable concurrency)</li>
+            <li>Resumable via DICOM UID-based tracker</li>
+            <li>LLM Safe Harbor verification gate</li>
+            <li>Three-layer pixel redaction (margin + OCR + LLM filter)</li>
+            <li>Full audit database of every processed instance</li>
+          </ul>
+        </div>
+        <div class="example-canvas">
+          <!-- Static pipeline visualization -->
+          <div class="example-pipeline-visual">
+            <div class="example-row">
+              <div class="ex-node ex-node-trigger">&#9654; Trigger</div>
+              <div class="ex-edge"></div>
+              <div class="ex-node ex-node-source">&#9729; Patient List</div>
+              <div class="ex-edge"></div>
+              <div class="ex-node ex-node-block">
+                <div class="ex-node-block-label">&#9638; Block &times;3</div>
+                <div class="ex-node-block-inner">
+                  <div class="ex-block-row">
+                    <span class="ex-mini">Pull</span>
+                    <span class="ex-mini-edge"></span>
+                    <span class="ex-mini">Tracker</span>
+                    <span class="ex-mini-edge"></span>
+                    <span class="ex-mini">Map</span>
+                    <span class="ex-mini-edge"></span>
+                    <span class="ex-mini ex-mini-shield">Tag DE-ID</span>
+                    <span class="ex-mini-edge"></span>
+                    <span class="ex-mini ex-mini-ai">LLM Check</span>
+                    <span class="ex-mini-edge"></span>
+                    <span class="ex-mini">Router</span>
+                  </div>
+                  <div class="ex-block-branches">
+                    <div class="ex-block-branch ex-block-branch-safe">
+                      <span class="ex-branch-label">&#10003; safe</span>
+                      <span class="ex-mini ex-mini-shield">Pixel DE-ID</span>
+                      <span class="ex-mini-edge"></span>
+                      <span class="ex-mini">Store</span>
+                      <span class="ex-mini-edge"></span>
+                      <span class="ex-mini">Done</span>
+                    </div>
+                    <div class="ex-block-branch ex-block-branch-review">
+                      <span class="ex-branch-label">&#10007; review</span>
+                      <span class="ex-mini">Log</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ex-edge"></div>
+              <div class="ex-node ex-node-output">&#9783; Database</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Example 2: Voice Agent -->
+      <div class="example-showcase example-showcase-reverse">
+        <div class="example-canvas">
+          <div class="example-pipeline-visual">
+            <div class="example-row">
+              <div class="ex-node ex-node-trigger">&#9654; Trigger</div>
+              <div class="ex-edge"></div>
+              <div class="ex-node ex-node-ai">&#127908; Greeting TTS</div>
+              <div class="ex-edge"></div>
+              <div class="ex-node ex-node-ai">&#127908; Voice Input</div>
+              <div class="ex-edge"></div>
+              <div class="ex-node ex-node-ai">&#129302; Agent</div>
+              <div class="ex-edge"></div>
+              <div class="ex-node ex-node-ai">&#128266; Response TTS</div>
+            </div>
+          </div>
+        </div>
+        <div class="example-info">
+          <div class="example-badge example-badge-ai">Voice AI</div>
+          <h3>Voice Agent &mdash; Check My Email</h3>
+          <p>
+            The agent greets you with a spoken prompt listing available
+            capabilities, then opens the microphone to listen. Ask naturally
+            &mdash; <em>"summarize my last 5 emails"</em> &mdash; and the
+            autonomous AI agent connects to your inbox via MCP, reads the
+            messages, and speaks the summary back through your speakers.
+          </p>
+          <ul class="example-highlights">
+            <li>OpenAI Whisper speech-to-text transcription</li>
+            <li>Autonomous agent with email MCP tool access</li>
+            <li>Natural TTS voice response (6 voice options)</li>
+            <li>Context-aware &mdash; knows your workflow and tools</li>
+            <li>Multi-turn conversation with full history</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Node Grid -->
+  <section id="nodes" class="nodes">
+    <div class="section-inner">
+      <div class="concept-label">Platform</div>
+      <h2 class="section-title">30+ node types. Infinite combinations.</h2>
+      <p class="section-sub">Every node is a building block. Wire them together to build any medical data pipeline.</p>
+      <div class="node-pill-grid">
+        <span class="node-pill node-pill-trigger">Manual Trigger</span>
+        <span class="node-pill node-pill-trigger">Schedule</span>
+        <span class="node-pill node-pill-trigger">File Watcher</span>
+        <span class="node-pill node-pill-source">Data Explorer</span>
+        <span class="node-pill node-pill-source">DICOMweb Pull</span>
+        <span class="node-pill node-pill-source">DICOMweb Patient List</span>
+        <span class="node-pill node-pill-source">FHIR Pull</span>
+        <span class="node-pill node-pill-source">FHIR Patient List</span>
+        <span class="node-pill node-pill-medical">DICOM DE-ID Tag</span>
+        <span class="node-pill node-pill-medical">DICOM DE-ID Pixel</span>
+        <span class="node-pill node-pill-medical">DICOM Render</span>
+        <span class="node-pill node-pill-medical">DICOM Viewer</span>
+        <span class="node-pill node-pill-medical">FHIR DE-ID</span>
+        <span class="node-pill node-pill-medical">FHIR Viewer</span>
+        <span class="node-pill node-pill-ai">LLM</span>
+        <span class="node-pill node-pill-ai">AI Agent</span>
+        <span class="node-pill node-pill-ai">LLM Chat</span>
+        <span class="node-pill node-pill-ai">Router</span>
+        <span class="node-pill node-pill-logic">If</span>
+        <span class="node-pill node-pill-logic">Map</span>
+        <span class="node-pill node-pill-logic">Human Input</span>
+        <span class="node-pill node-pill-output">File Output</span>
+        <span class="node-pill node-pill-output">Batch Collect</span>
+        <span class="node-pill node-pill-output">DICOMweb Store</span>
+        <span class="node-pill node-pill-output">FHIR Store</span>
+        <span class="node-pill node-pill-output">Tracker Filter</span>
+        <span class="node-pill node-pill-output">DICOM Tracker</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section id="download" class="download">
+    <div class="section-inner download-inner">
+      <h2 class="section-title">Start building</h2>
+      <p class="section-sub">Free during alpha. No account required. No limits. No telemetry.</p>
+      <div class="download-card">
+        <div class="download-platform">
+          <span class="download-platform-icon">&#63743;</span>
+          <div>
+            <div class="download-platform-name">macOS</div>
+            <div class="download-platform-detail">Apple Silicon &amp; Intel &bull; macOS 12+</div>
+          </div>
+        </div>
+        <a id="download-btn" href="#" class="btn btn-primary btn-lg download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download .dmg
+        </a>
+        <div id="download-version" class="download-version"></div>
+      </div>
+      <div id="download-stats" class="download-stats"></div>
+      <div class="download-install">
+        <div class="download-install-title">Installation</div>
+        <ol class="download-install-steps">
+          <li>Download and open the <code>.dmg</code> file</li>
+          <li>Drag <strong>DrawLabs</strong> to <strong>Applications</strong></li>
+          <li>Before first launch, open Terminal and run:
+            <code class="download-install-cmd">xattr -cr /Applications/DrawLabs.app</code>
+            <span class="download-install-hint">This removes the quarantine flag since the app is unsigned during alpha.</span>
+          </li>
+          <li>Open DrawLabs from Applications</li>
+        </ol>
+      </div>
+      <p class="download-note">
+        Alpha release &mdash; provided as-is. Built by
+        <a href="mailto:ali.bakhshinejad@gmail.com">Ali Bakhshinejad</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="icon.png" alt="DrawLabs" width="20" height="20" />
+        <span>&copy; 2026 Ali Bakhshinejad. All rights reserved.</span>
+      </div>
+      <div class="footer-right">
+        <a href="mailto:ali.bakhshinejad@gmail.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fetch releases from GitHub — latest for download link, all for total count
+    (async function () {
+      const REPO = 'alib022/drawlabs-releases';
+      const RELEASES_URL = `https://github.com/${REPO}/releases`;
+      const btn = document.getElementById('download-btn');
+      const ver = document.getElementById('download-version');
+      const stats = document.getElementById('download-stats');
+      btn.href = RELEASES_URL;
+
+      try {
+        // Fetch all releases (paginated, up to 100)
+        const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`);
+        if (!res.ok) return;
+        const releases = await res.json();
+        if (!Array.isArray(releases) || releases.length === 0) return;
+
+        // Latest release — set download link
+        const latest = releases[0];
+        const dmg = latest.assets?.find(a => a.name.endsWith('.dmg'));
+        if (dmg) {
+          btn.href = dmg.browser_download_url;
+          ver.textContent = `v${latest.tag_name?.replace('v', '') || ''}`;
+        }
+
+        // Sum download counts across ALL releases and assets
+        let totalDownloads = 85;
+        for (const release of releases) {
+          for (const asset of (release.assets || [])) {
+            totalDownloads += asset.download_count || 0;
+          }
+        }
+
+        if (totalDownloads > 0) {
+          stats.innerHTML = `
+            <span class="download-stats-count" id="download-counter">0</span>
+            <span class="download-stats-label">downloads</span>
+          `;
+          // Animate counter from 0 to totalDownloads
+          const counterEl = document.getElementById('download-counter');
+          const duration = 2000;
+          const start = performance.now();
+          const tick = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic for a satisfying deceleration
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * totalDownloads);
+            counterEl.textContent = current.toLocaleString();
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          // Start animation when the element scrolls into view
+          const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              requestAnimationFrame(tick);
+              observer.disconnect();
+            }
+          }, { threshold: 0.5 });
+          observer.observe(counterEl);
+        }
+      } catch (e) {
+        // fallback already set
+      }
+    })();
+
+    // Floating logo drifts slower than scroll (parallax depth effect)
+    const logoBg = document.querySelector('.hero-logo-bg');
+    window.addEventListener('scroll', () => {
+      if (!logoBg) return;
+      const y = window.scrollY;
+      logoBg.style.transform = `translateY(calc(-50% - ${y * 0.05}px))`;
+    }, { passive: true });
+  </script>
+</body>
+</html>
