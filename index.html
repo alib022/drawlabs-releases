@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DrawLabs — Visual AI Workflows for Regulated Industries</title>
+  <meta name="description" content="Drag-and-drop workflow builder that combines autonomous AI agents with deterministic logic for regulated industries. Local-first, auditable, and compliant." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="icon.png" alt="DrawLabs" width="28" height="28" />
+        <span>DrawLabs</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#sage">Sage AI</a>
+        <a href="#friends">Friends</a>
+        <a href="#nodes">Nodes</a>
+        <a href="#download" class="nav-cta">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Floating bg logo -->
+  <div class="hero-logo-bg">
+    <img src="icon.png" alt="" aria-hidden="true" />
+  </div>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Free &amp; Open Alpha
+      </div>
+      <h1>
+        <span class="hero-line-1">AI Agents Meet</span>
+        <span class="hero-line-2">Deterministic Logic</span>
+      </h1>
+      <p class="hero-sub">
+        Visual workflow builder for teams who can&rsquo;t afford &ldquo;the AI got it wrong.&rdquo;
+        Combine <strong>autonomous agents</strong> with <strong>hard-coded logic</strong>,
+        <strong>conditional branching</strong>, <strong>human checkpoints</strong>, and
+        <strong>full audit trails</strong>. Built for healthcare, finance, legal, and
+        any space where compliance isn&rsquo;t optional.
+      </p>
+      <div class="hero-actions">
+        <a href="#download" class="btn btn-primary btn-lg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download for macOS
+        </a>
+        <a href="#features" class="btn btn-ghost btn-lg">See Features &darr;</a>
+      </div>
+
+      <!-- Animated pipeline -->
+      <div class="hero-pipeline">
+        <div class="pipeline-node pipeline-node-trigger"><span class="pipeline-node-icon">&#9654;</span><span>Trigger</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-source"><span class="pipeline-node-icon">&#9729;</span><span>Ingest</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-ai"><span class="pipeline-node-icon">&#10024;</span><span>AI Agent</span><span class="pipeline-node-badge">MCP</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-medical"><span class="pipeline-node-icon">&#128737;</span><span>Validate</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-output"><span class="pipeline-node-icon">&#9745;</span><span>Track</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== STATS BAR ====== -->
+  <section class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item"><span class="stat-num">40+</span><span class="stat-label">Node Types</span></div>
+      <div class="stat-item"><span class="stat-num">16</span><span class="stat-label">Capabilities</span></div>
+      <div class="stat-item"><span class="stat-num">P2P</span><span class="stat-label">Sharing</span></div>
+      <div class="stat-item"><span class="stat-num">0</span><span class="stat-label">Cloud Dependency</span></div>
+    </div>
+  </section>
+
+  <!-- ====== FEATURES (Bento Grid) ====== -->
+  <section id="features" class="features">
+    <div class="section-inner">
+      <div class="concept-label">Capabilities</div>
+      <h2 class="section-title">When AI needs guardrails, not just prompts</h2>
+
+      <div class="bento-grid">
+        <!-- Large: The Core Value -->
+        <div class="bento-card bento-lg">
+          <div class="bento-num">01</div>
+          <h3>AI + Hard Logic in One Graph</h3>
+          <p>LLM nodes for intelligence. If/else, map, and block nodes for deterministic control flow. The AI handles ambiguity, the logic handles compliance. Every decision is auditable, every branch is explicit. No black-box pipelines.</p>
+          <div class="bento-tag bento-tag-ai">Core</div>
+        </div>
+
+        <!-- Medium: Agents -->
+        <div class="bento-card bento-md">
+          <div class="bento-num">02</div>
+          <h3>Autonomous Agents</h3>
+          <p>MCP-powered agents that reason in loops, pick tools, and solve complex tasks &mdash; with guardrails you control.</p>
+          <div class="bento-tag bento-tag-ai">AI</div>
+        </div>
+
+        <!-- Medium: Human-in-the-Loop -->
+        <div class="bento-card bento-md">
+          <div class="bento-num">03</div>
+          <h3>Human Checkpoints</h3>
+          <p>Pause any pipeline for human review, approval, or annotation before proceeding. The AI suggests, a human confirms.</p>
+        </div>
+
+        <!-- Small cards row -->
+        <div class="bento-card bento-sm">
+          <div class="bento-num">04</div>
+          <h3>Pipeline Database</h3>
+          <p>SQLite ledger tracks every item through every stage. Live-view with auto-refresh.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-num">05</div>
+          <h3>Resumable at Scale</h3>
+          <p>Processing millions of records? Trackers pick up exactly where you left off.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-num">06</div>
+          <h3>Progress Reports</h3>
+          <p>Milestone email notifications with HTML dashboards, token usage, and cost tracking.</p>
+        </div>
+
+        <!-- Medium: Healthcare -->
+        <div class="bento-card bento-md">
+          <div class="bento-num">07</div>
+          <h3>Healthcare Ready</h3>
+          <p>Built-in DICOM + FHIR de-identification, pixel OCR redaction, Google Healthcare API, Safe Harbor compliance.</p>
+          <div class="bento-tag bento-tag-medical">Healthcare</div>
+        </div>
+
+        <!-- Medium: Headless -->
+        <div class="bento-card bento-md">
+          <div class="bento-num">08</div>
+          <h3>Headless &amp; CLI</h3>
+          <p>Run without UI, schedule via cron, export as shell scripts. System tray with live CPU/memory charts.</p>
+        </div>
+
+        <!-- Small row -->
+        <div class="bento-card bento-sm">
+          <div class="bento-num">09</div>
+          <h3>Cloud Storage</h3>
+          <p>GCS bucket upload/download. Sync databases across teams and locations.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-num">10</div>
+          <h3>Export Anywhere</h3>
+          <p>JSON, YAML, or self-contained shell scripts with interactive variable config.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-num">11</div>
+          <h3>Auto-Updates</h3>
+          <p>Checks for new versions on startup and daily. One-click download when available.</p>
+        </div>
+
+        <!-- Large: Local-First -->
+        <div class="bento-card bento-lg">
+          <div class="bento-num">12</div>
+          <h3>Local-First. Your Data. Your Machine.</h3>
+          <p>No cloud accounts, no telemetry, no data leaving your network. Secrets stored in the OS keychain. Workflows are files on disk. Full control, full privacy. Built for regulated environments where &ldquo;trust the cloud&rdquo; isn&rsquo;t an acceptable answer.</p>
+          <div class="bento-tag bento-tag-security">Security</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SAGE AI ====== -->
+  <section id="sage" class="sage-section">
+    <div class="section-inner">
+      <div class="sage-layout">
+        <div class="sage-info">
+          <div class="concept-label">AI Assistant</div>
+          <h2 class="section-title">Meet Sage</h2>
+          <p class="sage-desc">
+            Your voice-enabled AI co-pilot. Sage sees your entire workflow,
+            understands every node type, and helps you build, debug, and optimize
+            &mdash; by typing or just talking. Ask it to add nodes, fix errors,
+            or explain what a pipeline does.
+          </p>
+          <ul class="sage-features">
+            <li><span class="sage-feat-icon">&#127908;</span> Continuous voice with auto-detect silence</li>
+            <li><span class="sage-feat-icon">&#128483;</span> TTS readback (skips code blocks)</li>
+            <li><span class="sage-feat-icon">&#128736;</span> Progressive canvas building &mdash; nodes appear one by one</li>
+            <li><span class="sage-feat-icon">&#128274;</span> Only suggests existing node types &mdash; never invents</li>
+            <li><span class="sage-feat-icon">&#128257;</span> Transfer chats between Ask Sage and workflow panel</li>
+          </ul>
+        </div>
+        <div class="sage-visual">
+          <div class="sage-visual-orb">
+            <div class="sage-visual-ring"></div>
+            <div class="sage-visual-ring sage-visual-ring-2"></div>
+            <div class="sage-visual-logo">S</div>
+          </div>
+          <div class="sage-visual-label">Listening...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FRIENDS ====== -->
+  <section id="friends" class="sharing">
+    <div class="section-inner">
+      <div class="concept-label">Collaboration</div>
+      <h2 class="section-title">DrawLabs Community</h2>
+      <p class="section-sub">
+        A dedicated private network for all DrawLabs users. Share workflows,
+        discover peers, and collaborate &mdash; with one click.
+      </p>
+
+      <!-- Community highlight -->
+      <div class="community-highlight">
+        <div class="community-highlight-icon">&#127760;</div>
+        <div class="community-highlight-content">
+          <h3>Join the DrawLabs Network</h3>
+          <p>
+            Every DrawLabs install can join a shared community network powered by
+            <a href="https://tailscale.com" target="_blank" rel="noreferrer">Tailscale</a>.
+            Click <strong>&ldquo;Join Community&rdquo;</strong> in Settings and you&rsquo;re
+            connected to every other DrawLabs user worldwide. No accounts, no setup,
+            no port forwarding. The community key rotates automatically &mdash;
+            your app always fetches the latest.
+          </p>
+        </div>
+      </div>
+
+      <div class="sharing-grid">
+        <div class="sharing-card">
+          <div class="sharing-icon">&#128269;</div>
+          <h3>Auto-Discover</h3>
+          <p>DrawLabs scans the community network and finds every online peer automatically.</p>
+        </div>
+        <div class="sharing-card">
+          <div class="sharing-icon">&#128229;</div>
+          <h3>Browse &amp; Import</h3>
+          <p>Browse any peer&rsquo;s shared workflows and import with one click. Nodes build progressively on your canvas.</p>
+        </div>
+        <div class="sharing-card">
+          <div class="sharing-icon">&#128274;</div>
+          <h3>Secrets Stay Local</h3>
+          <p>Only workflow structure is shared &mdash; API keys, tokens, and credentials never leave your machine.</p>
+        </div>
+        <div class="sharing-card">
+          <div class="sharing-icon">&#129418;</div>
+          <h3>Animal Identities</h3>
+          <p>Every instance gets a random identity: &ldquo;&#129418; Clever Fox&rdquo;, &ldquo;&#129413; Swift Falcon&rdquo;. Visible in the status bar and to other users.</p>
+        </div>
+      </div>
+
+      <div class="sharing-flow">
+        <div class="sharing-flow-step"><span class="sharing-flow-num">1</span><span>Install <a href="https://tailscale.com/download" target="_blank" rel="noreferrer">Tailscale</a> (free)</span></div>
+        <div class="sharing-flow-arrow">&rarr;</div>
+        <div class="sharing-flow-step"><span class="sharing-flow-num">2</span><span>Click &ldquo;Join Community&rdquo;</span></div>
+        <div class="sharing-flow-arrow">&rarr;</div>
+        <div class="sharing-flow-step"><span class="sharing-flow-num">3</span><span>Mark workflows as shared</span></div>
+        <div class="sharing-flow-arrow">&rarr;</div>
+        <div class="sharing-flow-step"><span class="sharing-flow-num">4</span><span>Everyone can browse &amp; import</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== NODES ====== -->
+  <section id="nodes" class="nodes">
+    <div class="section-inner">
+      <div class="concept-label">Platform</div>
+      <h2 class="section-title">40+ node types. Infinite combinations.</h2>
+      <p class="section-sub">Every node is a building block. Wire them together to build any pipeline.</p>
+      <div class="nodes-card">
+      <div class="node-pill-grid">
+        <span class="node-pill node-pill-trigger">Manual Trigger</span>
+        <span class="node-pill node-pill-trigger">Schedule</span>
+        <span class="node-pill node-pill-trigger">File Watcher</span>
+        <span class="node-pill node-pill-source">Data Explorer</span>
+        <span class="node-pill node-pill-source">DICOMweb Pull</span>
+        <span class="node-pill node-pill-source">DICOMweb Patient List</span>
+        <span class="node-pill node-pill-source">DICOMweb Store</span>
+        <span class="node-pill node-pill-source">FHIR Pull</span>
+        <span class="node-pill node-pill-source">FHIR Patient List</span>
+        <span class="node-pill node-pill-source">FHIR Store</span>
+        <span class="node-pill node-pill-source">GCS Upload</span>
+        <span class="node-pill node-pill-source">GCS Download</span>
+        <span class="node-pill node-pill-medical">DICOM DE-ID Tag</span>
+        <span class="node-pill node-pill-medical">DICOM DE-ID Pixel</span>
+        <span class="node-pill node-pill-medical">DICOM Render</span>
+        <span class="node-pill node-pill-medical">DICOM Viewer</span>
+        <span class="node-pill node-pill-medical">FHIR DE-ID</span>
+        <span class="node-pill node-pill-medical">FHIR Viewer</span>
+        <span class="node-pill node-pill-ai">LLM</span>
+        <span class="node-pill node-pill-ai">AI Agent</span>
+        <span class="node-pill node-pill-ai">LLM Chat</span>
+        <span class="node-pill node-pill-ai">Router</span>
+        <span class="node-pill node-pill-ai">Speech to Text</span>
+        <span class="node-pill node-pill-ai">Text to Speech</span>
+        <span class="node-pill node-pill-ai">Voice Input</span>
+        <span class="node-pill node-pill-logic">If / Else</span>
+        <span class="node-pill node-pill-logic">Map</span>
+        <span class="node-pill node-pill-logic">Block</span>
+        <span class="node-pill node-pill-logic">Human Input</span>
+        <span class="node-pill node-pill-output">File Output</span>
+        <span class="node-pill node-pill-output">File Delete</span>
+        <span class="node-pill node-pill-output">Batch Collect</span>
+        <span class="node-pill node-pill-output">Pipeline DB</span>
+        <span class="node-pill node-pill-output">Progress Check</span>
+        <span class="node-pill node-pill-output">Tracker Filter</span>
+        <span class="node-pill node-pill-output">DICOM Tracker</span>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== DOWNLOAD ====== -->
+  <section id="download" class="download">
+    <div class="section-inner download-inner">
+      <h2 class="section-title">Start building</h2>
+      <p class="section-sub">Free during alpha. No account required. No limits. No telemetry.</p>
+      <div class="download-card">
+        <div class="download-platform">
+          <span class="download-platform-icon">&#63743;</span>
+          <div>
+            <div class="download-platform-name">macOS</div>
+            <div class="download-platform-detail">Apple Silicon &amp; Intel &bull; macOS 12+</div>
+          </div>
+        </div>
+        <a id="download-btn" href="#" class="btn btn-primary btn-lg download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download .dmg
+        </a>
+        <div id="download-version" class="download-version"></div>
+      </div>
+      <div id="download-stats" class="download-stats"></div>
+      <div class="download-install">
+        <div class="download-install-title">Installation</div>
+        <ol class="download-install-steps">
+          <li>Download and open the <code>.dmg</code> file</li>
+          <li>Drag <strong>DrawLabs</strong> to <strong>Applications</strong></li>
+          <li>Before first launch, open Terminal and run:
+            <code class="download-install-cmd">xattr -cr /Applications/DrawLabs.app</code>
+            <span class="download-install-hint">Removes the quarantine flag (app is unsigned during alpha).</span>
+          </li>
+          <li>Open DrawLabs from Applications</li>
+        </ol>
+      </div>
+      <p class="download-note">
+        Alpha release &mdash; provided as-is. Built by
+        <a href="mailto:ali.bakhshinejad@gmail.com">Ali Bakhshinejad</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="icon.png" alt="DrawLabs" width="20" height="20" />
+        <span>&copy; 2026 Ali Bakhshinejad. All rights reserved.</span>
+      </div>
+      <div class="footer-right">
+        <a href="mailto:ali.bakhshinejad@gmail.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Download counter
+    (async function () {
+      const REPO = 'alib022/drawlabs-releases';
+      const RELEASES_URL = `https://github.com/${REPO}/releases`;
+      const btn = document.getElementById('download-btn');
+      const ver = document.getElementById('download-version');
+      const stats = document.getElementById('download-stats');
+      btn.href = RELEASES_URL;
+      try {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`);
+        if (!res.ok) return;
+        const releases = await res.json();
+        if (!Array.isArray(releases) || releases.length === 0) return;
+        const latest = releases[0];
+        const dmg = latest.assets?.find(a => a.name.endsWith('.dmg'));
+        if (dmg) { btn.href = dmg.browser_download_url; ver.textContent = `v${latest.tag_name?.replace('v','') || ''}`; }
+        let totalDownloads = 85;
+        for (const r of releases) for (const a of (r.assets||[])) totalDownloads += a.download_count || 0;
+        if (totalDownloads > 0) {
+          stats.innerHTML = `<span class="download-stats-count" id="download-counter">0</span><span class="download-stats-label">downloads</span>`;
+          const el = document.getElementById('download-counter');
+          const dur = 2000, st = performance.now();
+          const tick = (now) => { const p = Math.min((now-st)/dur,1); el.textContent = Math.round((1-Math.pow(1-p,3))*totalDownloads).toLocaleString(); if(p<1) requestAnimationFrame(tick); };
+          new IntersectionObserver((e) => { if(e[0].isIntersecting){requestAnimationFrame(tick);} }, {threshold:0.5}).observe(el);
+        }
+      } catch {}
+    })();
+    // Parallax
+    const logoBg = document.querySelector('.hero-logo-bg');
+    window.addEventListener('scroll', () => { if(logoBg) logoBg.style.transform = `translateY(calc(-50% - ${window.scrollY*0.05}px))`; }, {passive:true});
+  </script>
+</body>
+</html>
