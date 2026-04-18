@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DrawLabs — Visual Workflow Builder for Regulated Industries</title>
+  <meta name="description" content="Turn operational expertise into auditable, AI-assisted workflows. Drag nodes, connect logic, add human checkpoints. Built for healthcare, finance, legal — any space where compliance isn't optional." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="icon.png" alt="DrawLabs" width="28" height="28" />
+        <span>DrawLabs</span>
+      </a>
+      <div class="nav-links">
+        <a href="#personas">Personas</a>
+        <a href="#features">Features</a>
+        <a href="#sage">Sage AI</a>
+        <a href="#community">Community</a>
+        <a href="#developers">Developers</a>
+        <a href="#download" class="nav-cta">Download</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Floating bg logo -->
+  <div class="hero-logo-bg">
+    <img src="icon.png" alt="" aria-hidden="true" />
+  </div>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Free &amp; Open Alpha
+      </div>
+      <h1>
+        <span class="hero-line-1">Your expertise,</span>
+        <span class="hero-line-2">automated.</span>
+      </h1>
+      <p class="hero-sub">
+        DrawLabs is a visual workflow builder where domain experts turn
+        years of operational knowledge into auditable, AI-assisted pipelines.
+        <strong>The graph is the source of truth &mdash; not the AI.</strong>
+        Drag nodes, connect logic, add human checkpoints, and deploy.
+        Built for healthcare, finance, legal, and any space where
+        compliance isn&rsquo;t optional.
+      </p>
+      <div class="hero-actions">
+        <a href="#download" class="btn btn-primary btn-lg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download for macOS
+        </a>
+        <a href="#features" class="btn btn-ghost btn-lg">See Features &darr;</a>
+      </div>
+
+      <!-- Animated pipeline -->
+      <div class="hero-pipeline">
+        <div class="pipeline-node pipeline-node-trigger"><span class="pipeline-node-icon">&#9654;</span><span>Trigger</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-source"><span class="pipeline-node-icon">&#128269;</span><span>Look Up</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-ai"><span class="pipeline-node-icon">&#10024;</span><span>AI Check</span><span class="pipeline-node-badge">LLM</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-medical"><span class="pipeline-node-icon">&#9995;</span><span>Approve</span></div>
+        <div class="pipeline-edge"></div>
+        <div class="pipeline-node pipeline-node-output"><span class="pipeline-node-icon">&#9745;</span><span>Complete</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== STATS BAR ====== -->
+  <section class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item"><span class="stat-num">39+</span><span class="stat-label">Node Types</span></div>
+      <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">Industry Personas</span></div>
+      <div class="stat-item"><span class="stat-num">P2P</span><span class="stat-label">Professional Networks</span></div>
+      <div class="stat-item"><span class="stat-num">0</span><span class="stat-label">Cloud Dependency</span></div>
+    </div>
+  </section>
+
+  <!-- ====== PERSONAS ====== -->
+  <section id="personas" class="features">
+    <div class="section-inner">
+      <div class="concept-label">One Engine, Many Faces</div>
+      <h2 class="section-title">Pick your domain. The UI adapts.</h2>
+      <p class="section-sub">The same workflow engine, dressed in your language. Node names, categories, templates, and Sage prompts adapt to your industry. Switch personas anytime &mdash; your workflows never change.</p>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-md" style="border-left: 3px solid #0891b2;">
+          <div class="bento-num">&#129658;</div>
+          <h3>Healthcare Administration</h3>
+          <p>&ldquo;Answer Call&rdquo; &bull; &ldquo;Check Insurance&rdquo; &bull; &ldquo;Pull Patient Record&rdquo; &bull; &ldquo;Route Based On&hellip;&rdquo; &bull; &ldquo;Ask a Person&rdquo; &bull; &ldquo;Tracking Database&rdquo;</p>
+          <div class="bento-tag bento-tag-medical">Healthcare</div>
+        </div>
+        <div class="bento-card bento-md" style="border-left: 3px solid #4361ee;">
+          <div class="bento-num">&#128187;</div>
+          <h3>Developer</h3>
+          <p>&ldquo;LLM&rdquo; &bull; &ldquo;Map&rdquo; &bull; &ldquo;Router&rdquo; &bull; &ldquo;DICOMweb Pull&rdquo; &bull; &ldquo;FHIR DE-ID&rdquo; &bull; &ldquo;Pipeline DB&rdquo; &mdash; full technical access to all 39 node types.</p>
+          <div class="bento-tag bento-tag-ai">Developer</div>
+        </div>
+        <div class="bento-card bento-sm">
+          <h3>Custom Personas</h3>
+          <p>Create your own persona for Dental, Veterinary, Radiology Billing &mdash; or any niche. Share with your professional network.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <h3>Persona Designer</h3>
+          <p>Rename nodes, group categories, set colors, choose templates. No code needed. Export and share as JSON.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <h3>First-Launch Onboarding</h3>
+          <p>Set your profile, pick a persona, and you&rsquo;re building workflows in under 60 seconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FEATURES ====== -->
+  <section id="features" class="features">
+    <div class="section-inner">
+      <div class="concept-label">Capabilities</div>
+      <h2 class="section-title">When AI needs guardrails, not just prompts</h2>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-lg">
+          <div class="bento-num">01</div>
+          <h3>AI + Hard Logic in One Graph</h3>
+          <p>LLM nodes for intelligence. If/else, map, and router nodes for deterministic control. Human checkpoints for judgment calls. Every decision is auditable, every branch is explicit, every error is handled by policy &mdash; not by crashing.</p>
+          <div class="bento-tag bento-tag-ai">Core</div>
+        </div>
+
+        <div class="bento-card bento-md">
+          <div class="bento-num">02</div>
+          <h3>Smart Error Handling</h3>
+          <p>Every node has an error policy: 409 Conflict &rarr; skip. Timeout &rarr; retry. File missing &rarr; continue. Users override per-node in the config panel. No more workflows crashing on expected conditions.</p>
+        </div>
+
+        <div class="bento-card bento-md">
+          <div class="bento-num">03</div>
+          <h3>Dynamic Config Panels</h3>
+          <p>Node config UIs are 100% schema-driven. Grouped fields, conditional visibility, folder pickers, action buttons &mdash; all from Python annotations. Zero custom frontend code per node.</p>
+        </div>
+
+        <div class="bento-card bento-sm">
+          <div class="bento-num">04</div>
+          <h3>Step-by-Step Wizard</h3>
+          <p>Click &ldquo;Wizard&rdquo; on any node. Walk through each field one at a time with full descriptions.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-num">05</div>
+          <h3>Version Control</h3>
+          <p>Every save records who edited, when, and which DrawLabs version. Full edit history. Original creator preserved.</p>
+        </div>
+        <div class="bento-card bento-sm">
+          <div class="bento-num">06</div>
+          <h3>Compatibility Check</h3>
+          <p>Import a workflow? DrawLabs checks if all node types exist locally. Missing nodes &rarr; clear warning before import.</p>
+        </div>
+
+        <div class="bento-card bento-md">
+          <div class="bento-num">07</div>
+          <h3>Healthcare Ready</h3>
+          <p>DICOM tag stripping, pixel OCR redaction, FHIR de-identification, Google Healthcare API, Safe Harbor compliance, pipeline tracking databases.</p>
+          <div class="bento-tag bento-tag-medical">Healthcare</div>
+        </div>
+
+        <div class="bento-card bento-md">
+          <div class="bento-num">08</div>
+          <h3>Local-First. Your Data.</h3>
+          <p>No cloud, no telemetry. Secrets in OS keychain. Workflows are files on disk. PHI never leaves the premises. Built for HIPAA, SOX, and any regulation that says &ldquo;keep it on-prem.&rdquo;</p>
+          <div class="bento-tag bento-tag-security">Security</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SAGE AI ====== -->
+  <section id="sage" class="sage-section">
+    <div class="section-inner">
+      <div class="sage-layout">
+        <div class="sage-info">
+          <div class="concept-label">AI Assistant</div>
+          <h2 class="section-title">Meet Sage</h2>
+          <p class="sage-desc">
+            Three ways to work with AI inside DrawLabs:
+          </p>
+          <ul class="sage-features">
+            <li><span class="sage-feat-icon">&#128736;</span> <strong>Build with Sage</strong> &mdash; describe what you need, Sage generates a complete workflow. Live canvas preview updates as you chat.</li>
+            <li><span class="sage-feat-icon">&#128172;</span> <strong>Ask Sage</strong> &mdash; quick questions, debugging, &ldquo;what does this node do?&rdquo; Voice-enabled with auto-detect silence.</li>
+            <li><span class="sage-feat-icon">&#128187;</span> <strong>Build a Node</strong> &mdash; describe a custom node type, Sage writes Python code, you review and edit in a dark-theme IDE, NDK validator gates quality, one-click hot-install.</li>
+          </ul>
+          <p class="sage-desc" style="margin-top: 1rem;">
+            Sage is persona-aware &mdash; it uses your industry&rsquo;s language.
+            A healthcare user hears &ldquo;Pull Patient Record&rdquo; not &ldquo;fhir_pull.&rdquo;
+          </p>
+        </div>
+        <div class="sage-visual">
+          <div class="sage-visual-orb">
+            <div class="sage-visual-ring"></div>
+            <div class="sage-visual-ring sage-visual-ring-2"></div>
+            <div class="sage-visual-logo">S</div>
+          </div>
+          <div class="sage-visual-label">Listening...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== COMMUNITY ====== -->
+  <section id="community" class="sharing">
+    <div class="section-inner">
+      <div class="concept-label">Professional Networks</div>
+      <h2 class="section-title">Institutional knowledge, shared.</h2>
+      <p class="section-sub">
+        When Maria at a family practice builds a perfect insurance verification workflow,
+        she shares it to the healthcare network. 200 practices import and adapt it.
+        Collective expertise becomes collective infrastructure.
+      </p>
+
+      <div class="sharing-grid">
+        <div class="sharing-card">
+          <div class="sharing-icon">&#127973;</div>
+          <h3>Healthcare Network</h3>
+          <p>Practice managers share intake flows, prior auth workflows, patient recall pipelines. Battle-tested by real offices.</p>
+        </div>
+        <div class="sharing-card">
+          <div class="sharing-icon">&#9878;</div>
+          <h3>Legal Network</h3>
+          <p>Contract review, due diligence, client intake, deadline tracking &mdash; shared across firms.</p>
+        </div>
+        <div class="sharing-card">
+          <div class="sharing-icon">&#127760;</div>
+          <h3>Community Network</h3>
+          <p>Open to all DrawLabs users. General-purpose automations, templates, and integrations.</p>
+        </div>
+        <div class="sharing-card">
+          <div class="sharing-icon">&#128187;</div>
+          <h3>Developer Network</h3>
+          <p>Custom nodes, technical integrations, and API connectors. Build once, share everywhere.</p>
+        </div>
+      </div>
+
+      <div class="community-highlight">
+        <div class="community-highlight-icon">&#128274;</div>
+        <div class="community-highlight-content">
+          <h3>Private &amp; Secure</h3>
+          <p>
+            Networks are access-controlled. Healthcare workflows stay in healthcare.
+            Secrets never leave your machine. Only workflow structure is shared.
+            Powered by <a href="https://tailscale.com" target="_blank" rel="noreferrer">Tailscale</a>
+            &mdash; encrypted P2P with zero port forwarding.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== DEVELOPERS ====== -->
+  <section id="developers" class="features">
+    <div class="section-inner">
+      <div class="concept-label">For Developers</div>
+      <h2 class="section-title">Build nodes. Publish products.</h2>
+      <p class="section-sub">The Node Builder lets developers create custom node types with AI assistance. The NDK standard ensures quality. Hot-reload means instant testing. And soon &mdash; publish your workflows as products.</p>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-lg">
+          <div class="bento-num">&#128736;</div>
+          <h3>Node Builder IDE</h3>
+          <p>Dark-theme code editor with Sage AI writing Python for you. Tab between node code and tests. NDK validation runs in real-time &mdash; errors, warnings, and test results inline. One-click hot-install into the running app.</p>
+          <div class="bento-tag bento-tag-ai">Developer</div>
+        </div>
+
+        <div class="bento-card bento-md">
+          <div class="bento-num">&#9989;</div>
+          <h3>NDK Standard</h3>
+          <p>Config descriptions, output schema, error policy, no resolve_value, metadata &mdash; 9 rules enforced by automated validation. If it doesn&rsquo;t pass, it doesn&rsquo;t publish.</p>
+        </div>
+
+        <div class="bento-card bento-md">
+          <div class="bento-num">&#9889;</div>
+          <h3>Hot Reload</h3>
+          <p>Save &rarr; validate &rarr; install. The node appears in the palette instantly. No daemon restart, no app restart, no delay.</p>
+        </div>
+
+        <div class="bento-card bento-lg" style="border-left: 3px solid #f59e0b;">
+          <div class="bento-num">&#128640;</div>
+          <h3>Coming: Workflow Marketplace</h3>
+          <p>Publish your workflow as a standalone product. Users subscribe, you keep 85% of revenue. DrawLabs handles billing, compliance documentation, audit logging, and infrastructure. Turn 8 years of operational expertise into a SaaS product in four weeks &mdash; no co-founder, no Series A.</p>
+          <div class="bento-tag" style="background: #fef3c7; color: #92400e;">Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== NODES ====== -->
+  <section id="nodes" class="nodes">
+    <div class="section-inner">
+      <div class="concept-label">Platform</div>
+      <h2 class="section-title">39 built-in nodes. Unlimited custom.</h2>
+      <p class="section-sub">Every node is a building block. Wire them together. Build your own with the Node Builder.</p>
+      <div class="nodes-card">
+      <div class="node-pill-grid">
+        <span class="node-pill node-pill-trigger">Manual Trigger</span>
+        <span class="node-pill node-pill-trigger">Schedule</span>
+        <span class="node-pill node-pill-trigger">File Watcher</span>
+        <span class="node-pill node-pill-source">Data Explorer</span>
+        <span class="node-pill node-pill-source">DICOMweb Pull</span>
+        <span class="node-pill node-pill-source">FHIR Pull</span>
+        <span class="node-pill node-pill-source">GCS Upload</span>
+        <span class="node-pill node-pill-source">GCS Download</span>
+        <span class="node-pill node-pill-medical">DICOM DE-ID Tag</span>
+        <span class="node-pill node-pill-medical">DICOM DE-ID Pixel</span>
+        <span class="node-pill node-pill-medical">FHIR DE-ID</span>
+        <span class="node-pill node-pill-ai">LLM</span>
+        <span class="node-pill node-pill-ai">AI Agent</span>
+        <span class="node-pill node-pill-ai">LLM Chat</span>
+        <span class="node-pill node-pill-ai">Router</span>
+        <span class="node-pill node-pill-ai">Voice Input</span>
+        <span class="node-pill node-pill-logic">If / Else</span>
+        <span class="node-pill node-pill-logic">Map</span>
+        <span class="node-pill node-pill-logic">Block</span>
+        <span class="node-pill node-pill-logic">Human Input</span>
+        <span class="node-pill node-pill-output">Pipeline DB</span>
+        <span class="node-pill node-pill-output">Batch Collect</span>
+        <span class="node-pill node-pill-output">Progress Check</span>
+        <span class="node-pill node-pill-output">File Output</span>
+        <span class="node-pill node-pill-custom">+ Your Custom Nodes</span>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== DOWNLOAD ====== -->
+  <section id="download" class="download">
+    <div class="section-inner download-inner">
+      <h2 class="section-title">Start building</h2>
+      <p class="section-sub">Free during alpha. No account required. No limits. No telemetry.</p>
+      <div class="download-card">
+        <div class="download-platform">
+          <span class="download-platform-icon">&#63743;</span>
+          <div>
+            <div class="download-platform-name">macOS</div>
+            <div class="download-platform-detail">Apple Silicon &amp; Intel &bull; macOS 12+</div>
+          </div>
+        </div>
+        <a id="download-btn" href="#" class="btn btn-primary btn-lg download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download .dmg
+        </a>
+        <div id="download-version" class="download-version"></div>
+      </div>
+      <div id="download-stats" class="download-stats"></div>
+      <div class="download-install">
+        <div class="download-install-title">Installation</div>
+        <ol class="download-install-steps">
+          <li>Download and open the <code>.dmg</code> file</li>
+          <li>Drag <strong>DrawLabs</strong> to <strong>Applications</strong></li>
+          <li>Before first launch, open Terminal and run:
+            <code class="download-install-cmd">xattr -cr /Applications/DrawLabs.app</code>
+            <span class="download-install-hint">Removes the quarantine flag (app is unsigned during alpha).</span>
+          </li>
+          <li>Open DrawLabs &mdash; set your profile, pick your persona, start building</li>
+        </ol>
+      </div>
+      <p class="download-note">
+        Alpha release &mdash; provided as-is. Built by
+        <a href="mailto:ali.bakhshinejad@gmail.com">Ali Bakhshinejad</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="icon.png" alt="DrawLabs" width="20" height="20" />
+        <span>&copy; 2026 Ali Bakhshinejad. All rights reserved.</span>
+      </div>
+      <div class="footer-right">
+        <a href="mailto:ali.bakhshinejad@gmail.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Download counter
+    (async function () {
+      const REPO = 'alib022/drawlabs-releases';
+      const RELEASES_URL = `https://github.com/${REPO}/releases`;
+      const btn = document.getElementById('download-btn');
+      const ver = document.getElementById('download-version');
+      const stats = document.getElementById('download-stats');
+      btn.href = RELEASES_URL;
+      try {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`);
+        if (!res.ok) return;
+        const releases = await res.json();
+        if (!Array.isArray(releases) || releases.length === 0) return;
+        const latest = releases[0];
+        const dmg = latest.assets?.find(a => a.name.endsWith('.dmg'));
+        if (dmg) { btn.href = dmg.browser_download_url; ver.textContent = `v${latest.tag_name?.replace('v','') || ''}`; }
+        let totalDownloads = 85;
+        for (const r of releases) for (const a of (r.assets||[])) totalDownloads += a.download_count || 0;
+        if (totalDownloads > 0) {
+          stats.innerHTML = `<span class="download-stats-count" id="download-counter">0</span><span class="download-stats-label">downloads</span>`;
+          const el = document.getElementById('download-counter');
+          const dur = 2000, st = performance.now();
+          const tick = (now) => { const p = Math.min((now-st)/dur,1); el.textContent = Math.round((1-Math.pow(1-p,3))*totalDownloads).toLocaleString(); if(p<1) requestAnimationFrame(tick); };
+          new IntersectionObserver((e) => { if(e[0].isIntersecting){requestAnimationFrame(tick);} }, {threshold:0.5}).observe(el);
+        }
+      } catch {}
+    })();
+    // Parallax
+    const logoBg = document.querySelector('.hero-logo-bg');
+    window.addEventListener('scroll', () => { if(logoBg) logoBg.style.transform = `translateY(calc(-50% - ${window.scrollY*0.05}px))`; }, {passive:true});
+  </script>
+</body>
+</html>
