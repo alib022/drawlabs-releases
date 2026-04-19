@@ -1,0 +1,7 @@
+{
+  "auth_key": "tskey-auth-kyCuyGsEuN11CNTRL-gWvQ4G26jFTAyCP6KScwETefNtYWj4Rg",
+  "api_token": "dlabs-community-v1-a8f3e2d1b9c7",
+  "updated_at": "2026-04-11",
+  "expires_at": "2026-07-10",
+  "note": "auth_key = Tailscale join key (rotated every 90 days). api_token = share server API auth (rotate anytime)."
+}
