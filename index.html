@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DrawLabs — Local-first AI workflows for regulated industries</title>
+<meta name="description" content="Local-first visual AI workflow builder for regulated industries. Drag domain nodes (DICOM, FHIR, de-identification) alongside on-device LLM agents; burst to cloud when policy allows. Sensitive data never leaves your org." />
+<meta name="theme-color" content="#f7f4ec" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="alternate icon" type="image/png" href="icon.png" />
+<link rel="apple-touch-icon" href="icon.png" />
+<link rel="canonical" href="https://drawlabs.ai/" />
+<!-- Open Graph / Twitter unfurl -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://drawlabs.ai/" />
+<meta property="og:title" content="DrawLabs — Local-first AI workflows for regulated industries" />
+<meta property="og:description" content="Drag domain nodes alongside on-device LLM agents. Burst to cloud only when policy allows. Sensitive data never leaves your org." />
+<meta property="og:image" content="https://drawlabs.ai/icon.png" />
+<meta property="og:site_name" content="DrawLabs" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="DrawLabs — Local-first AI workflows for regulated industries" />
+<meta name="twitter:description" content="Drag domain nodes alongside on-device LLM agents. Burst to cloud only when policy allows." />
+<meta name="twitter:image" content="https://drawlabs.ai/icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: oklch(0.97 0.005 80);
+    --bg-2: oklch(0.94 0.008 80);
+    --bg-3: oklch(0.91 0.01 80);
+    --ink: oklch(0.18 0.02 265);
+    --ink-2: oklch(0.34 0.02 265);
+    --ink-3: oklch(0.52 0.015 265);
+    --ink-4: oklch(0.68 0.015 265);
+    --line: oklch(0.82 0.01 80);
+    --line-2: oklch(0.88 0.008 80);
+    --accent: oklch(0.52 0.22 290);
+    --accent-2: oklch(0.55 0.18 220);
+    --accent-3: oklch(0.55 0.18 150);
+    --danger: oklch(0.55 0.22 25);
+    --warn: oklch(0.60 0.17 75);
+    --radius: 10px;
+    --density-pad: 1;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Nav/footer logo marks are static — the stagger rotations are baked
+     into the <symbol> definition's inline transform attributes. */
+  .display{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.03em;line-height:1.02}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-.01em}
+  h1,h2,h3,h4{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.025em;margin:0;font-weight:600}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+
+  /* Grid background */
+  .bg-grid{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      linear-gradient(var(--line-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 75%);
+    opacity: .6;
+  }
+  body[data-bg="ink"] .bg-grid, body[data-bg="midnight"] .bg-grid{opacity:.35}
+  .bg-noise{
+    position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.04;mix-blend-mode:overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/></svg>");
+  }
+  .aurora{
+    position:fixed;inset:-10% -5% auto -5%;height:85vh;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(40% 50% at 20% 30%, color-mix(in oklch, var(--accent) 22%, transparent) 0%, transparent 70%),
+      radial-gradient(35% 45% at 80% 20%, color-mix(in oklch, var(--accent-2) 20%, transparent) 0%, transparent 70%),
+      radial-gradient(50% 40% at 50% 60%, color-mix(in oklch, var(--accent) 10%, transparent) 0%, transparent 70%);
+    filter: blur(40px) saturate(1.1);
+    opacity:.7;
+  }
+  body[data-bg="ink"] .aurora, body[data-bg="midnight"] .aurora{opacity:.85}
+
+  /* Scroll-driven background Aperture. A large faint mark pinned to the
+     viewport; the three rings counter-rotate at different rates keyed to
+     the page's scroll position. Scrolling down spins them one way, up the
+     other. Rate is in degrees per pixel of scroll. */
+  .scroll-aperture{
+    position:fixed; inset:0; z-index:0;
+    pointer-events:none;
+    opacity: .04;
+    color: var(--ink);
+  }
+  body[data-bg="ink"] .scroll-aperture,
+  body[data-bg="midnight"] .scroll-aperture{ opacity:.08 }
+  /* SVG sits with its centre on the left edge of the viewport — only the
+     right half of the mark is visible, the left half bleeds off-screen.
+     Rings rotate around 32,32 in the viewBox, which maps to the SVG's
+     centre = the viewport's left edge, so rotations sweep across the
+     visible right half. */
+  .scroll-aperture svg{
+    position:absolute;
+    top:50%; left:0;
+    width:90vmin; height:90vmin;
+    transform: translate(-50%, -50%);
+  }
+  .scroll-aperture .ap-outer,
+  .scroll-aperture .ap-mid,
+  .scroll-aperture .ap-inner{
+    transform-origin: 32px 32px;
+    transform-box: view-box;
+    will-change: transform;
+  }
+  /* --scroll-progress is a 0→1 ratio (top-of-page → bottom-of-page) set
+     on :root from JS. Each ring does exactly one revolution across the
+     full scrollable height; signs alternate so they counter-rotate. */
+  .scroll-aperture .ap-outer{
+    transform: rotate(calc(var(--scroll-progress, 0) * 360deg));
+  }
+  .scroll-aperture .ap-mid{
+    transform: rotate(calc(15deg + var(--scroll-progress, 0) * -360deg));
+  }
+  .scroll-aperture .ap-inner{
+    transform: rotate(calc(30deg + var(--scroll-progress, 0) * 360deg));
+  }
+  @media (prefers-reduced-motion: reduce){
+    .scroll-aperture .ap-outer{ transform: none !important; }
+    .scroll-aperture .ap-mid{ transform: rotate(15deg) !important; }
+    .scroll-aperture .ap-inner{ transform: rotate(30deg) !important; }
+  }
+
+  .wrap{max-width:1280px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+
+  /* NAV */
+  nav.top{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    background: color-mix(in oklch, var(--bg) 70%, transparent);
+    border-bottom:1px solid var(--line-2);
+  }
+  nav.top .inner{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;max-width:1280px;margin:0 auto}
+  .logo{display:inline-flex;align-items:center;gap:14px;font-family:'Space Grotesk';font-weight:600;font-size:16px;letter-spacing:-.02em;color:var(--ink);text-decoration:none;white-space:nowrap;line-height:1}
+  .logo-mark{
+    width:26px;height:26px;flex:none;display:block;overflow:visible;
+    color: var(--ink);
+  }
+  nav.top ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:13.5px;color:var(--ink-2)}
+  nav.top ul a:hover{color:var(--ink)}
+  nav.top .cta{display:flex;gap:10px;align-items:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 14px;border-radius:8px;font-size:13px;font-weight:500;
+    border:1px solid var(--line);background:transparent;color:var(--ink);
+    transition:all .15s ease;
+  }
+  .btn:hover{border-color:var(--ink-3);background:var(--bg-2)}
+  .btn.primary{
+    background: linear-gradient(180deg, var(--accent) 0%, color-mix(in oklch, var(--accent) 85%, black) 100%);
+    color: white;
+    border-color: transparent;
+    font-weight:600;
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--accent) 50%, transparent),
+                0 8px 24px -8px color-mix(in oklch, var(--accent) 60%, transparent);
+  }
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn .arrow{transition:transform .2s}
+  .btn:hover .arrow{transform:translateX(2px)}
+
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:5px 11px 5px 8px;border-radius:999px;
+    font-size:11.5px;font-weight:500;letter-spacing:.01em;
+    border:1px solid var(--line);background:var(--bg-2);color:var(--ink-2);
+  }
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-3);box-shadow:0 0 10px var(--accent-3)}
+
+  /* HERO */
+  .hero{padding:72px 0 40px;position:relative}
+  .hero .eyebrow{display:flex;justify-content:center;margin-bottom:24px}
+  .hero h1{
+    font-size: clamp(44px, 7vw, 96px);
+    text-align:center;
+    font-weight:600;
+    max-width: 14ch;
+    margin: 0 auto;
+  }
+  .hero h1 .grad{
+    background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero h1 .line{display:block;overflow:hidden;line-height:1.05;padding-bottom:.05em}
+  .hero h1 .swap{display:inline-block;animation:swap-in .8s cubic-bezier(.2,.8,.2,1) both}
+  .hero h1 .swap.out{animation:swap-out .5s cubic-bezier(.6,0,.6,0) both}
+  @keyframes swap-in{
+    0%  {opacity:0; transform:translateY(1.1em) skewY(3deg); filter:blur(6px)}
+    60% {opacity:1; transform:translateY(-0.05em) skewY(0); filter:blur(0)}
+    100%{opacity:1; transform:translateY(0); filter:blur(0)}
+  }
+  @keyframes swap-out{
+    0%  {opacity:1; transform:translateY(0) skewY(0); filter:blur(0)}
+    100%{opacity:0; transform:translateY(-1.1em) skewY(-3deg); filter:blur(6px)}
+  }
+  .hero .sub{
+    text-align:center;max-width:62ch;margin:24px auto 0;
+    color:var(--ink-2);font-size:17px;line-height:1.55;
+  }
+  .hero .ctas{display:flex;gap:12px;justify-content:center;margin-top:32px}
+  .hero .meta{
+    display:flex;gap:24px;justify-content:center;margin-top:28px;
+    font-family:'JetBrains Mono';font-size:11.5px;color:var(--ink-3);letter-spacing:.02em;
+    text-transform:uppercase;
+  }
+  .hero .meta span{display:flex;align-items:center;gap:6px}
+  .hero .meta .tick{color:var(--accent-3)}
+
+  /* Canvas demo wrapper */
+  .canvas-frame{
+    margin: 56px auto 0;
+    max-width: 1280px;
+    position:relative;
+    border-radius: 16px;
+    background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+    border:1px solid var(--line);
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--accent) 8%, transparent),
+      0 40px 120px -20px color-mix(in oklch, var(--accent) 30%, transparent),
+      0 80px 200px -40px color-mix(in oklch, var(--accent-2) 25%, transparent);
+    overflow:hidden;
+  }
+  .canvas-frame::before{
+    content:"";position:absolute;inset:0;pointer-events:none;border-radius:16px;
+    background: linear-gradient(180deg, color-mix(in oklch, var(--accent) 12%, transparent) 0%, transparent 30%);
+  }
+  .canvas-chrome{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 16px;border-bottom:1px solid var(--line-2);
+    background: color-mix(in oklch, var(--bg-2) 80%, transparent);
+    position:relative;z-index:2;
+  }
+  .chrome-dots{display:flex;gap:6px}
+  .chrome-dots span{width:10px;height:10px;border-radius:50%;background:var(--bg-3);border:1px solid var(--line)}
+  .chrome-title{font-family:'JetBrains Mono';font-size:11.5px;color:var(--ink-3)}
+  .chrome-right{display:flex;gap:8px;align-items:center;font-family:'JetBrains Mono';font-size:11px;color:var(--ink-3)}
+  .chrome-right .live{display:flex;align-items:center;gap:6px;color:var(--accent-3)}
+  .chrome-right .live .bop{width:6px;height:6px;border-radius:50%;background:var(--accent-3);animation:bop 1.4s ease-in-out infinite}
+  @keyframes bop{0%,100%{opacity:.3}50%{opacity:1;box-shadow:0 0 12px var(--accent-3)}}
+
+  /* Node canvas */
+  #node-canvas{
+    position:relative;height:520px;overflow:hidden;
+    background:
+      radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0/24px 24px,
+      var(--bg);
+  }
+  .node{
+    position:absolute;min-width:200px;
+    background: linear-gradient(180deg, var(--bg-2) 0%, color-mix(in oklch, var(--bg-2) 92%, var(--accent) 8%) 100%);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:12px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,.5), inset 0 1px 0 color-mix(in oklch, var(--ink) 8%, transparent);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    z-index:3;
+  }
+  .node:hover{transform:translateY(-2px);border-color:var(--ink-4);box-shadow:0 20px 40px -10px rgba(0,0,0,.6), 0 0 0 1px color-mix(in oklch, var(--accent) 30%, transparent)}
+  .node.active{
+    border-color: color-mix(in oklch, var(--accent) 60%, var(--line));
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--accent) 40%, transparent),
+                0 0 30px -5px color-mix(in oklch, var(--accent) 50%, transparent),
+                0 10px 30px -10px rgba(0,0,0,.5);
+  }
+  .node .n-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .node .n-ico{
+    width:22px;height:22px;border-radius:5px;display:grid;place-items:center;
+    font-family:'JetBrains Mono';font-size:10px;font-weight:600;
+  }
+  .node .n-title{font-family:'Space Grotesk';font-size:13px;font-weight:500;color:var(--ink)}
+  .node .n-kind{font-family:'JetBrains Mono';font-size:10px;color:var(--ink-3);margin-left:auto;text-transform:uppercase;letter-spacing:.06em}
+  .node .n-body{font-size:11.5px;color:var(--ink-3);line-height:1.45;font-family:'JetBrains Mono'}
+  .node .n-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-top:1px solid var(--line-2)}
+  .node .n-row:first-child{border-top:none}
+  .node .n-row .k{color:var(--ink-3)}
+  .node .n-row .v{color:var(--ink-2)}
+  .node .port{
+    position:absolute;width:10px;height:10px;border-radius:50%;
+    background:var(--bg);border:1.5px solid var(--ink-4);
+    top:50%;transform:translateY(-50%);
+  }
+  .node .port.in{left:-5px}
+  .node .port.out{right:-5px}
+  .node.active .port{border-color:var(--accent);background:var(--accent);box-shadow:0 0 10px var(--accent)}
+
+  /* node tints */
+  .node[data-kind="source"] .n-ico{background:color-mix(in oklch, var(--accent-2) 25%, var(--bg-3));color:var(--accent-2);border:1px solid color-mix(in oklch, var(--accent-2) 30%, transparent)}
+  .node[data-kind="transform"] .n-ico{background:color-mix(in oklch, var(--accent) 25%, var(--bg-3));color:var(--accent);border:1px solid color-mix(in oklch, var(--accent) 30%, transparent)}
+  .node[data-kind="agent"] .n-ico{background:color-mix(in oklch, var(--warn) 20%, var(--bg-3));color:var(--warn);border:1px solid color-mix(in oklch, var(--warn) 30%, transparent)}
+  .node[data-kind="sink"] .n-ico{background:color-mix(in oklch, var(--accent-3) 25%, var(--bg-3));color:var(--accent-3);border:1px solid color-mix(in oklch, var(--accent-3) 30%, transparent)}
+  .node[data-kind="guard"] .n-ico{background:color-mix(in oklch, var(--danger) 20%, var(--bg-3));color:var(--danger);border:1px solid color-mix(in oklch, var(--danger) 30%, transparent)}
+
+  #wires{position:absolute;inset:0;z-index:2;pointer-events:none}
+  #wires path{fill:none;stroke:var(--line);stroke-width:1.5;transition:stroke .3s}
+  #wires path.active{stroke:url(#wireGrad);stroke-width:2;filter:drop-shadow(0 0 6px var(--accent))}
+  .packet{
+    position:absolute;width:10px;height:10px;border-radius:50%;z-index:4;pointer-events:none;
+    background: radial-gradient(circle at 30% 30%, white 0%, var(--accent) 40%, transparent 80%);
+    box-shadow: 0 0 14px var(--accent), 0 0 28px color-mix(in oklch, var(--accent) 60%, transparent);
+  }
+
+  /* palette sidebar */
+  .palette{
+    position:absolute;top:16px;left:16px;
+    width:180px;z-index:5;
+    background: color-mix(in oklch, var(--bg-2) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border:1px solid var(--line);border-radius:10px;
+    padding:10px;font-size:11.5px;
+  }
+  .palette .p-title{font-family:'JetBrains Mono';font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;padding:0 4px}
+  .palette .p-item{display:flex;align-items:center;gap:8px;padding:6px 6px;border-radius:6px;color:var(--ink-2);cursor:grab}
+  .palette .p-item:hover{background:var(--bg-3);color:var(--ink)}
+  .palette .p-item .d{width:14px;height:14px;border-radius:4px}
+  .palette .p-item .d.src{background:color-mix(in oklch, var(--accent-2) 40%, var(--bg-3))}
+  .palette .p-item .d.tr{background:color-mix(in oklch, var(--accent) 40%, var(--bg-3))}
+  .palette .p-item .d.ag{background:color-mix(in oklch, var(--warn) 40%, var(--bg-3))}
+  .palette .p-item .d.si{background:color-mix(in oklch, var(--accent-3) 40%, var(--bg-3))}
+  .palette .p-item .d.gu{background:color-mix(in oklch, var(--danger) 40%, var(--bg-3))}
+
+  /* status bar */
+  .status{
+    position:absolute;bottom:0;left:0;right:0;z-index:5;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 14px;font-family:'JetBrains Mono';font-size:10.5px;color:var(--ink-3);
+    background:color-mix(in oklch, var(--bg-2) 85%, transparent);
+    border-top:1px solid var(--line-2);
+  }
+  .status .left, .status .right{display:flex;gap:18px;align-items:center}
+  .status .tag{display:flex;align-items:center;gap:5px;text-transform:uppercase;letter-spacing:.05em}
+  .status .tag .sq{width:7px;height:7px;border-radius:2px}
+  .status .tag.local .sq{background:var(--accent-3);box-shadow:0 0 8px var(--accent-3)}
+  .status .tag.cloud .sq{background:var(--accent-2);box-shadow:0 0 8px var(--accent-2)}
+  .status .tag.hipaa{color:var(--accent-3)}
+
+  /* SECTIONS */
+  .section{padding: calc(100px * var(--density-pad)) 0;position:relative}
+  .section-eyebrow{
+    font-family:'JetBrains Mono';font-size:11.5px;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.12em;
+    display:flex;align-items:center;gap:10px;margin-bottom:20px;
+  }
+  .section-eyebrow .bar{width:24px;height:1px;background:var(--accent)}
+  .section h2{font-size:clamp(36px, 4.5vw, 56px);max-width:22ch;margin-bottom:20px;font-weight:600}
+  .section h2 .grad{background:linear-gradient(100deg, var(--accent), var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .section .lede{color:var(--ink-2);font-size:17px;max-width:62ch;line-height:1.55}
+
+  /* logos strip */
+  .strip{
+    padding: 40px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+    display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;
+    font-family:'JetBrains Mono';font-size:11px;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.12em;
+  }
+  .strip .label{opacity:.7}
+  .strip .ph{
+    height:28px;padding:0 14px;border:1px dashed var(--line);border-radius:6px;
+    display:flex;align-items:center;color:var(--ink-4);font-size:10.5px;
+  }
+
+  /* How it works: 3-column */
+  .how{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:start}
+  @media (max-width:960px){.how{grid-template-columns:1fr;gap:40px}}
+  .steps{display:flex;flex-direction:column;gap:12px}
+  .step{
+    border:1px solid var(--line-2);border-radius:12px;padding:18px 20px;
+    background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+    cursor:pointer;transition:all .25s ease;
+  }
+  .step:hover{border-color:var(--ink-4)}
+  .step.on{
+    border-color:color-mix(in oklch, var(--accent) 50%, var(--line));
+    background:linear-gradient(180deg, color-mix(in oklch, var(--accent) 8%, var(--bg-2)) 0%, var(--bg) 100%);
+    box-shadow:0 0 0 1px color-mix(in oklch, var(--accent) 20%, transparent), 0 20px 40px -20px color-mix(in oklch, var(--accent) 40%, transparent);
+  }
+  .step .s-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .step .s-num{font-family:'JetBrains Mono';font-size:11px;color:var(--ink-3);letter-spacing:.08em}
+  .step .s-title{font-family:'Space Grotesk';font-size:19px;font-weight:500}
+  .step .s-body{color:var(--ink-2);font-size:14px;line-height:1.55}
+
+  .how-visual{
+    position:sticky;top:96px;border-radius:14px;overflow:hidden;
+    border:1px solid var(--line);background:var(--bg-2);
+    aspect-ratio: 4/3;
+    display:grid;place-items:center;
+    background:
+      radial-gradient(circle at 20% 20%, color-mix(in oklch, var(--accent) 20%, transparent), transparent 60%),
+      radial-gradient(circle at 80% 80%, color-mix(in oklch, var(--accent-2) 18%, transparent), transparent 60%),
+      var(--bg-2);
+  }
+
+  /* Architecture diagram section */
+  .arch{
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+    position:relative;
+  }
+  .arch-head{padding:22px 28px;border-bottom:1px solid var(--line-2);display:flex;justify-content:space-between;align-items:center}
+  .arch-head .t{font-family:'JetBrains Mono';font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em}
+  .arch-body{padding:40px 28px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch;min-height:380px}
+  @media(max-width:900px){.arch-body{grid-template-columns:1fr}}
+  .arch-col{
+    border:1px solid var(--line-2);border-radius:12px;padding:24px;
+    background:color-mix(in oklch, var(--bg-2) 50%, transparent);
+    position:relative;
+  }
+  .arch-col h4{font-family:'Space Grotesk';font-size:20px;margin-bottom:6px;font-weight:600}
+  .arch-col .sub{font-family:'JetBrains Mono';font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
+  .arch-col.local{border-color:color-mix(in oklch, var(--accent-3) 40%, var(--line))}
+  .arch-col.cloud{border-color:color-mix(in oklch, var(--accent-2) 40%, var(--line))}
+  .arch-col.local h4 span{color:var(--accent-3)}
+  .arch-col.cloud h4 span{color:var(--accent-2)}
+  .arch-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 0;border-top:1px solid var(--line-2);
+    font-family:'JetBrains Mono';font-size:12px;
+  }
+  .arch-row:first-of-type{border-top:none}
+  .arch-row .k{color:var(--ink-2)}
+  .arch-row .v{color:var(--ink-3)}
+  .arch-row .chk{color:var(--accent-3)}
+
+  /* Nodes expand grid */
+  .domains{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px;
+  }
+  @media(max-width:960px){.domains{grid-template-columns:repeat(2,1fr)}}
+  .domain{
+    border:1px solid var(--line-2);border-radius:12px;padding:20px;
+    background:var(--bg-2);position:relative;overflow:hidden;
+    transition:all .25s ease;
+  }
+  .domain:hover{border-color:var(--ink-4);transform:translateY(-2px)}
+  .domain.on{border-color:color-mix(in oklch, var(--accent) 40%, var(--line));background:linear-gradient(180deg, color-mix(in oklch, var(--accent) 6%, var(--bg-2)), var(--bg-2))}
+  .domain.soon{opacity:.7}
+  .domain .d-tag{
+    font-family:'JetBrains Mono';font-size:10.5px;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;
+    display:flex;justify-content:space-between;
+  }
+  .domain .d-tag .st{color:var(--accent-3)}
+  .domain .d-tag .st.soon{color:var(--warn)}
+  .domain h4{font-family:'Space Grotesk';font-size:22px;margin-bottom:10px;font-weight:600}
+  .domain .d-nodes{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .domain .chip{
+    font-family:'JetBrains Mono';font-size:10.5px;padding:3px 8px;border-radius:999px;
+    border:1px solid var(--line);color:var(--ink-2);background:var(--bg-3);
+  }
+
+  /* Stats / investor */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+    margin-top:40px;
+  }
+  @media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{padding:32px 28px;border-left:1px solid var(--line-2)}
+  .stat:first-child{border-left:none}
+  @media(max-width:900px){.stat{border-left:none !important;border-top:1px solid var(--line-2)}.stat:first-child{border-top:none}}
+  .stat .v{font-family:'Space Grotesk';font-size:44px;font-weight:600;letter-spacing:-.03em;line-height:1;margin-bottom:10px}
+  .stat .v .g{background:linear-gradient(100deg, var(--accent), var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{font-family:'JetBrains Mono';font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+
+  /* Investor card */
+  .invest{
+    border:1px solid var(--line);border-radius:16px;padding:48px;
+    background:
+      radial-gradient(70% 80% at 10% 0%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 60%),
+      radial-gradient(60% 70% at 100% 100%, color-mix(in oklch, var(--accent-2) 14%, transparent), transparent 60%),
+      linear-gradient(180deg, var(--bg-2), var(--bg));
+    display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;
+  }
+  @media(max-width:900px){.invest{grid-template-columns:1fr;padding:32px}}
+  .invest h3{font-size:36px;font-weight:600;margin-bottom:16px;line-height:1.1}
+  .invest .why{display:flex;flex-direction:column;gap:14px}
+  .invest .why li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-2)}
+  .invest .why li .k{width:22px;height:22px;border-radius:6px;background:color-mix(in oklch, var(--accent) 20%, var(--bg-3));color:var(--accent);display:grid;place-items:center;font-family:'JetBrains Mono';font-size:11px;flex-shrink:0}
+
+  /* FAQ-ish / CTA */
+  .final{
+    text-align:center;padding:120px 0 80px;
+    background:
+      radial-gradient(50% 50% at 50% 100%, color-mix(in oklch, var(--accent) 20%, transparent), transparent 80%);
+    border-top:1px solid var(--line-2);margin-top:40px;
+  }
+  .final h2{font-size:clamp(40px, 6vw, 72px);margin:0 auto 24px}
+  .final .sub{color:var(--ink-2);max-width:50ch;margin:0 auto 32px;font-size:17px}
+
+  /* Download card */
+  .dl-card{
+    margin-top:48px;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    background:
+      radial-gradient(60% 80% at 0% 0%, color-mix(in oklch, var(--accent) 10%, transparent), transparent 60%),
+      radial-gradient(60% 80% at 100% 100%, color-mix(in oklch, var(--accent-2) 10%, transparent), transparent 60%),
+      linear-gradient(180deg, var(--bg-2), var(--bg));
+  }
+  .dl-top{padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .dl-platform{display:flex;align-items:center;gap:20px;flex:1;min-width:0}
+  .dl-apple{color:var(--ink);flex-shrink:0}
+  .dl-name-wrap{min-width:0}
+  .dl-name{font-family:'Space Grotesk';font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--ink);display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .alpha-badge{
+    font-size:9.5px;font-weight:600;letter-spacing:.12em;
+    padding:3px 8px;border-radius:999px;
+    color:var(--warn);
+    background:color-mix(in oklch, var(--warn) 12%, transparent);
+    border:1px solid color-mix(in oklch, var(--warn) 35%, var(--line));
+    vertical-align:middle;
+    position:relative;top:-1px;
+  }
+
+  /* Alpha disclaimer modal */
+  .alpha-modal{
+    position:fixed;inset:0;z-index:200;
+    display:none;
+    align-items:center;justify-content:center;
+    padding:20px;
+  }
+  .alpha-modal.on{display:flex}
+  .alpha-modal-scrim{
+    position:absolute;inset:0;
+    background:color-mix(in oklch, var(--bg) 70%, transparent);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    animation:alpha-fade .18s ease-out;
+  }
+  .alpha-modal-card{
+    position:relative;
+    width:min(480px, calc(100vw - 40px));
+    background:var(--bg-2);
+    border:1px solid var(--line-2);
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.6), 0 0 0 1px color-mix(in oklch, var(--warn) 20%, transparent);
+    animation:alpha-rise .22s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes alpha-fade{from{opacity:0}to{opacity:1}}
+  @keyframes alpha-rise{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+  .alpha-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .alpha-modal-close{
+    background:transparent;border:1px solid var(--line);
+    width:30px;height:30px;border-radius:8px;
+    display:grid;place-items:center;cursor:pointer;
+    color:var(--ink-3);transition:all .15s ease;
+  }
+  .alpha-modal-close:hover{color:var(--ink);border-color:var(--ink-4)}
+  .alpha-modal-title{
+    font-family:'Space Grotesk';font-size:24px;font-weight:600;
+    letter-spacing:-.02em;line-height:1.15;margin:0 0 12px;color:var(--ink);
+  }
+  .alpha-modal-body{
+    font-size:14px;color:var(--ink-2);line-height:1.55;margin:0 0 18px;
+  }
+  .alpha-modal-list{
+    list-style:none;padding:0;margin:0 0 24px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .alpha-modal-list li{
+    font-size:13px;color:var(--ink-3);line-height:1.5;
+    padding-left:18px;position:relative;
+  }
+  .alpha-modal-list li::before{
+    content:'';position:absolute;left:0;top:8px;
+    width:5px;height:5px;border-radius:50%;
+    background:var(--warn);
+  }
+  .alpha-modal-actions{
+    display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;
+  }
+  .alpha-modal-actions .btn{font-size:13px}
+  .dl-meta{font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+  .dl-meta #dl-version{color:var(--accent);margin-left:6px;font-weight:600}
+
+  .dl-counter-inline{
+    padding-left:24px;margin-left:8px;
+    border-left:1px solid var(--line-2);
+    display:flex;flex-direction:column;
+  }
+  .dl-count{
+    font-family:'Space Grotesk';font-size:34px;font-weight:600;letter-spacing:-.03em;
+    line-height:1;color:var(--accent);
+    font-feature-settings:"tnum";
+  }
+  .dl-label{font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.1em;margin-top:6px;display:flex;align-items:center;gap:6px}
+  .dot-live{width:6px;height:6px;border-radius:50%;background:var(--accent-3);box-shadow:0 0 10px var(--accent-3);animation:bop 1.4s ease-in-out infinite;display:inline-block}
+
+  .dl-btn{font-size:14px;padding:11px 18px;flex-shrink:0}
+  .dl-bar{height:3px;background:var(--bg-3);overflow:hidden;position:relative;border-top:1px solid var(--line-2)}
+  .dl-bar-fill{
+    position:absolute;inset:0;width:0%;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    box-shadow:0 0 12px color-mix(in oklch, var(--accent) 50%, transparent);
+    transition:width 2s cubic-bezier(.2,.8,.2,1);
+  }
+
+  @media(max-width:720px){
+    .dl-platform{flex-wrap:wrap}
+    .dl-counter-inline{padding-left:0;margin-left:0;border-left:none;border-top:1px solid var(--line-2);padding-top:14px;margin-top:8px;width:100%}
+  }
+
+  .dl-install{margin-top:32px;border:1px dashed var(--line-2);border-radius:12px;padding:24px 28px}
+  .dl-install-title{font-size:10.5px;color:var(--ink-3);letter-spacing:.12em;margin-bottom:14px}
+  .dl-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+  @media(max-width:700px){.dl-steps{grid-template-columns:1fr}}
+  .dl-steps li{font-size:13.5px;color:var(--ink-2);line-height:1.5;display:flex;gap:10px;align-items:flex-start}
+  .dl-steps .s-n{color:var(--ink-3);font-size:11px;padding-top:2px}
+  .dl-steps code, .dl-cmd{
+    font-family:'JetBrains Mono';font-size:11.5px;
+    background:var(--bg-3);border:1px solid var(--line-2);
+    padding:2px 6px;border-radius:4px;color:var(--accent-2);
+  }
+  .dl-cmd{display:block;margin-top:8px;padding:8px 10px;font-size:12px}
+  .dl-hint{display:block;margin-top:6px;color:var(--ink-3);font-size:12px}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line-2);padding:40px 0 60px;color:var(--ink-3);font-size:12.5px}
+  footer .f-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer ul{display:flex;gap:22px;list-style:none;padding:0;margin:0}
+
+  /* reveal animations */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  /* density variants */
+  body[data-density="compact"]{--density-pad: .75}
+  body[data-density="comfy"]{--density-pad: 1}
+  body[data-density="airy"]{--density-pad: 1.35}
+</style>
+</head>
+<body data-screen-label="DrawLabs">
+  <!-- Shared SVG symbols -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="lg-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="var(--accent)"/>
+        <stop offset=".55" stop-color="var(--accent-2)"/>
+        <stop offset="1" stop-color="var(--accent-3)"/>
+      </linearGradient>
+      <symbol id="aperture" viewBox="0 0 64 64">
+        <!-- Stagger rotations are baked in as inline SVG transform attributes
+             so they survive being cloned into <use>'s shadow DOM (external
+             CSS transforms don't propagate there reliably). -->
+        <rect class="ap-outer" x="8" y="8" width="48" height="48" rx="6" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/>
+        <rect class="ap-mid"   x="14" y="14" width="36" height="36" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" opacity=".55" transform="rotate(15 32 32)"/>
+        <rect class="ap-inner" x="20" y="20" width="24" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2.2" transform="rotate(30 32 32)"/>
+        <circle cx="32" cy="32" r="5" fill="var(--accent)"/>
+      </symbol>
+    </defs>
+  </svg>
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="t-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="oklch(0.97 0.005 80)"/>
+          <stop offset="1" stop-color="oklch(0.91 0.01 80)"/>
+        </linearGradient>
+        <linearGradient id="t-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="oklch(0.52 0.22 290)"/>
+          <stop offset=".5" stop-color="oklch(0.55 0.18 220)"/>
+          <stop offset="1" stop-color="oklch(0.55 0.18 150)"/>
+        </linearGradient>
+      </defs>
+      <rect width="400" height="400" rx="48" fill="url(#t-bg)"/>
+      <g transform="translate(200,200) scale(50)">
+        <path fill="none" stroke="url(#t-grad)" stroke-width=".55" stroke-linejoin="round" d="M0 1L.35.98L.69.93L1.02.85L1.34.73L1.63.59L1.89.42L2.13.24L2.33.03L2.49-.19L2.61-.42L2.69-.65L2.73-.88L2.73-1.1L2.68-1.31L2.6-1.5L2.47-1.67L2.32-1.81L2.13-1.93L1.91-2.01L1.67-2.05L1.41-2.06L1.14-2.03L.86-1.96L.58-1.85L.3-1.71L.03-1.52L-.22-1.31L-.46-1.06L-.68-.79L-.87-.5L-1.03-.19L-1.15.13L-1.25.46L-1.3.79L-1.33 1.11L-1.31 1.43L-1.27 1.72L-1.19 2L-1.08 2.25L-.94 2.47L-.78 2.66L-.61 2.81L-.41 2.91L-.21 2.98L0 3L.21 2.98L.41 2.91L.61 2.81L.78 2.66L.94 2.47L1.08 2.25L1.19 2L1.27 1.72L1.31 1.43L1.33 1.11L1.3.79L1.25.46L1.15.13L1.03-.19L.87-.5L.68-.79L.46-1.06L.22-1.31L-.03-1.52L-.3-1.71L-.58-1.85L-.86-1.96L-1.14-2.03L-1.41-2.06L-1.67-2.05L-1.91-2.01L-2.13-1.93L-2.32-1.81L-2.47-1.67L-2.6-1.5L-2.68-1.31L-2.73-1.1L-2.73-.88L-2.69-.65L-2.61-.42L-2.49-.19L-2.33.03L-2.13.24L-1.89.42L-1.63.59L-1.34.73L-1.02.85L-.69.93L-.35.98Z"/>
+      </g>
+    </svg>
+  </template>
+  <div class="bg-grid"></div>
+  <div class="aurora"></div>
+  <div class="bg-noise"></div>
+
+  <!-- Large background Aperture — rings counter-rotate as the user scrolls.
+       Rects are inlined (not via <use>) so external CSS transforms can
+       reach them. -->
+  <div class="scroll-aperture" aria-hidden="true">
+    <svg viewBox="0 0 64 64">
+      <rect class="ap-outer" x="8" y="8" width="48" height="48" rx="6" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".35"/>
+      <rect class="ap-mid"   x="14" y="14" width="36" height="36" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" opacity=".55"/>
+      <rect class="ap-inner" x="20" y="20" width="24" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <circle cx="32" cy="32" r="5" fill="var(--accent)"/>
+    </svg>
+  </div>
+
+  <nav class="top">
+    <div class="inner">
+      <a href="#" class="logo">
+        <svg class="logo-mark" viewBox="0 0 64 64"><use href="#aperture"/></svg>
+        DrawLabs
+      </a>
+      <ul>
+        <li><a href="#product">Product</a></li>
+        <li><a href="#arch">Architecture</a></li>
+        <li><a href="#domains">Domains</a></li>
+        <li><a href="#why">Why now</a></li>
+        <li><a href="#download">Download</a></li>
+      </ul>
+      <div class="cta">
+        <a href="mailto:ali@drawlabs.ai?subject=DrawLabs%20inquiry" class="btn primary">Contact <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" data-screen-label="Hero">
+    <div class="wrap">
+      <h1 class="display" style="margin-top:16px;text-wrap:balance;max-width:22ch">
+        Compliant AI pipelines,<br/>
+        <span class="grad">drawn in minutes.</span>
+      </h1>
+      <p class="sub">
+        DrawLabs is a local-first visual workflow builder for regulated industries. Drag domain nodes — DICOM, FHIR, de-identification — alongside on-device LLM agents. Burst to cloud in one click. Sensitive data never leaves your org.
+      </p>
+      <div class="ctas">
+        <a href="mailto:ali@drawlabs.ai?subject=DrawLabs%20demo%20request" class="btn primary">Book a demo <span class="arrow">→</span></a>
+        <a href="#product" class="btn">See the canvas</a>
+      </div>
+      <div class="meta">
+        <span><span class="tick">✓</span> On-prem runtime</span>
+        <span><span class="tick">✓</span> Air-gap deploy</span>
+      </div>
+
+      <!-- Canvas demo -->
+      <div class="canvas-frame reveal" id="hero-canvas">
+        <div class="canvas-chrome">
+          <div class="chrome-dots"><span></span><span></span><span></span></div>
+          <div class="chrome-title mono">radiology-de-id.flow — DrawLabs Studio</div>
+          <div class="chrome-right">
+            <span class="live"><span class="bop"></span> RUNNING</span>
+          </div>
+        </div>
+        <div id="node-canvas">
+          <svg id="wires" viewBox="0 0 1280 520" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="wireGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="oklch(0.72 0.20 290)"/>
+                <stop offset="50%" stop-color="oklch(0.82 0.15 220)"/>
+                <stop offset="100%" stop-color="oklch(0.78 0.18 150)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- palette -->
+          <div class="palette">
+            <div class="p-title">Node library</div>
+            <div class="p-item"><span class="d src"></span> Sources</div>
+            <div class="p-item"><span class="d tr"></span> Transforms</div>
+            <div class="p-item"><span class="d gu"></span> Guards</div>
+            <div class="p-item"><span class="d ag"></span> Agents</div>
+            <div class="p-item"><span class="d si"></span> Sinks</div>
+          </div>
+
+          <div class="status">
+            <div class="left">
+              <span class="tag local"><span class="sq"></span> Local runtime</span>
+              <span class="tag hipaa">HIPAA · boundary intact</span>
+            </div>
+            <div class="right">
+              <span>3,412 studies / hr</span>
+              <span>latency 84ms</span>
+              <span>v2.7.1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="product" data-screen-label="Product">
+    <div class="wrap">
+      <div class="section-eyebrow reveal"><span class="bar"></span> Product</div>
+      <h2 class="reveal">A workflow builder that <span class="grad">speaks compliance</span> natively.</h2>
+      <p class="lede reveal">No glue code. No rogue cloud calls. Every node is audited, versioned, and signed. Every agent runs where your data lives.</p>
+
+      <div class="how" style="margin-top:56px">
+        <div class="steps reveal">
+          <div class="step on" data-step="0">
+            <div class="s-head"><span class="s-num mono">01 /</span><span class="s-title">Drag domain nodes</span></div>
+            <p class="s-body">Start from the node library: DICOM readers, FHIR resources, PHI de-identifiers, policy guards. Typed ports reject incompatible connections before runtime.</p>
+          </div>
+          <div class="step" data-step="1">
+            <div class="s-head"><span class="s-num mono">02 /</span><span class="s-title">Wire in local agents</span></div>
+            <p class="s-body">Drop in LLM agents backed by your choice of on-device models. Llama, Qwen, in-house — bound to the pipeline with tool-use policies and rate limits.</p>
+          </div>
+          <div class="step" data-step="2">
+            <div class="s-head"><span class="s-num mono">03 /</span><span class="s-title">Run on your hardware</span></div>
+            <p class="s-body">The DrawLabs runtime executes on-prem — your workstation, your VPC, your air-gapped cluster. Data, prompts, and model weights stay inside the boundary.</p>
+          </div>
+          <div class="step" data-step="3">
+            <div class="s-head"><span class="s-num mono">04 /</span><span class="s-title">Burst to cloud, selectively</span></div>
+            <p class="s-body">One-click lift for the heavy steps — after de-identification, with per-node destination controls. Audit log captures every byte crossing the boundary.</p>
+          </div>
+        </div>
+
+        <div class="how-visual reveal" id="how-visual">
+          <div id="how-illus" style="position:relative;width:88%;aspect-ratio:1;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section" id="arch" data-screen-label="Architecture">
+    <div class="wrap">
+      <div class="section-eyebrow reveal"><span class="bar"></span> Architecture / moat</div>
+      <h2 class="reveal">Local-first by default.<br/><span class="grad">Cloud-elastic by choice.</span></h2>
+      <p class="lede reveal">The runtime is a single binary. It runs on a laptop, a workstation, or a rack — with the same semantics. Bursting is a policy decision, not an architectural one.</p>
+
+      <div class="arch reveal" style="margin-top:48px">
+        <div class="arch-head">
+          <span class="t">drawlabs_runtime · topology</span>
+          <span class="t">policy-enforced boundary</span>
+        </div>
+        <div class="arch-body">
+          <div class="arch-col local">
+            <h4><span>●</span> On-device</h4>
+            <div class="sub">runs in your boundary</div>
+            <div class="arch-row"><span class="k">Raw PHI / PII</span><span class="chk">✓ stays local</span></div>
+            <div class="arch-row"><span class="k">De-identification</span><span class="chk">✓ stays local</span></div>
+            <div class="arch-row"><span class="k">DICOM / FHIR I/O</span><span class="chk">✓ stays local</span></div>
+            <div class="arch-row"><span class="k">Local LLM agents</span><span class="chk">✓ stays local</span></div>
+            <div class="arch-row"><span class="k">Audit ledger</span><span class="chk">✓ stays local</span></div>
+            <div class="arch-row"><span class="k">Policy engine</span><span class="chk">✓ stays local</span></div>
+          </div>
+          <div class="arch-col cloud">
+            <h4><span>◆</span> Burst targets</h4>
+            <div class="sub">only when policy allows</div>
+            <div class="arch-row"><span class="k">De-identified batch inference</span><span class="v">opt-in</span></div>
+            <div class="arch-row"><span class="k">Frontier model calls</span><span class="v">per-node</span></div>
+            <div class="arch-row"><span class="k">GPU-heavy transforms</span><span class="v">opt-in</span></div>
+            <div class="arch-row"><span class="k">Destination allowlist</span><span class="v">enforced</span></div>
+            <div class="arch-row"><span class="k">Byte-level egress log</span><span class="v">immutable</span></div>
+            <div class="arch-row"><span class="k">Zero retention contracts</span><span class="v">default</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAINS -->
+  <section class="section" id="domains" data-screen-label="Domains">
+    <div class="wrap">
+      <div class="section-eyebrow reveal"><span class="bar"></span> Domain expansion</div>
+      <h2 class="reveal">Healthcare first.<br/><span class="grad">Every regulated vertical next.</span></h2>
+      <p class="lede reveal">Domain nodes are the product. Each vertical ships as a signed, versioned pack — built with domain experts, audited by compliance, owned by you.</p>
+
+      <div class="domains">
+        <div class="domain on reveal">
+          <div class="d-tag"><span>Pack · 01</span><span class="st">● Live</span></div>
+          <h4>Healthcare</h4>
+          <p style="color:var(--ink-3);font-size:13px;margin:0">DICOM, FHIR, HL7v2, de-identification, modality routing, radiology report agents.</p>
+          <div class="d-nodes">
+            <span class="chip">DICOM</span><span class="chip">FHIR</span><span class="chip">HL7v2</span><span class="chip">PHI·deID</span><span class="chip">Modality</span>
+          </div>
+        </div>
+        <a href="mailto:ali@drawlabs.ai?subject=DrawLabs%20·%20Financial%20pack" class="domain soon reveal" style="text-decoration:none;color:inherit;display:block">
+          <div class="d-tag"><span>Pack · 02</span><span class="st soon">In discovery</span></div>
+          <h4>Financial</h4>
+          <p style="color:var(--ink-3);font-size:13px;margin:0">Talk to us to shape this pack. Directionally: SWIFT, ISO 20022, KYC corpora, suspicious-activity agents.</p>
+          <div class="d-nodes">
+            <span class="chip">Shape the pack →</span>
+          </div>
+        </a>
+        <a href="mailto:ali@drawlabs.ai?subject=DrawLabs%20·%20Legal%20pack" class="domain soon reveal" style="text-decoration:none;color:inherit;display:block">
+          <div class="d-tag"><span>Pack · 03</span><span class="st soon">In discovery</span></div>
+          <h4>Legal</h4>
+          <p style="color:var(--ink-3);font-size:13px;margin:0">Talk to us to shape this pack. Directionally: e-discovery, privilege-aware redaction, citation agents.</p>
+          <div class="d-nodes">
+            <span class="chip">Shape the pack →</span>
+          </div>
+        </a>
+        <a href="mailto:ali@drawlabs.ai?subject=DrawLabs%20·%20Defense%20pack" class="domain soon reveal" style="text-decoration:none;color:inherit;display:block">
+          <div class="d-tag"><span>Pack · 04</span><span class="st soon">In discovery</span></div>
+          <h4>Defense</h4>
+          <p style="color:var(--ink-3);font-size:13px;margin:0">Talk to us to shape this pack. Directionally: classification-aware routing, air-gap deploy, MLS guards.</p>
+          <div class="d-nodes">
+            <span class="chip">Shape the pack →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY NOW / THESIS -->
+  <section class="section" id="why" data-screen-label="Why now">
+    <div class="wrap">
+      <div class="section-eyebrow reveal"><span class="bar"></span> The thesis</div>
+      <h2 class="reveal">The moat is <span class="grad">the runtime.</span></h2>
+      <p class="lede reveal">Every competitor ships a cloud SaaS. We ship a local runtime that speaks compliance, with a visual builder on top. That's a different company.</p>
+
+      <div class="stats reveal">
+        <div class="stat"><div class="v"><span class="g">0</span></div><div class="l">Raw PHI bytes leaving the boundary</div></div>
+        <div class="stat"><div class="v"><span class="g">14</span></div><div class="l">Design partners · healthcare</div></div>
+        <div class="stat"><div class="v"><span class="g">4</span></div><div class="l">Verticals on roadmap</div></div>
+        <div class="stat"><div class="v"><span class="g">minutes</span></div><div class="l">From blank canvas to shipped</div></div>
+      </div>
+
+      <div class="invest reveal" style="margin-top:56px">
+        <div>
+          <h3 class="display">Why now — and why us.</h3>
+          <p style="color:var(--ink-2);font-size:15px;margin:0 0 16px;max-width:48ch">
+            Frontier models got good enough to matter in regulated work. On-device inference got fast enough to run them inside the boundary. Compliance buyers are being asked to ship AI — and told they can't move the data. DrawLabs is the path through.
+          </p>
+          <a href="#why" class="btn primary" id="thesis-expand">Read the thesis <span class="arrow">↓</span></a>
+        </div>
+        <ul class="why" style="list-style:none;padding:0;margin:0">
+          <li><span class="k mono">01</span><span><b style="color:var(--ink)">Local runtime, inside the boundary.</b> Once the runtime is deployed, it becomes part of the customer's compliance posture — not a vendor dependency.</span></li>
+          <li><span class="k mono">02</span><span><b style="color:var(--ink)">Domain packs built with experts.</b> Typed nodes for DICOM, FHIR, de-identification — shipped as signed packs, not stitched together from generic SDKs.</span></li>
+          <li><span class="k mono">03</span><span><b style="color:var(--ink)">A canvas the compliance team can read.</b> Visual pipelines make reviewers and builders successful at the same time.</span></li>
+          <li><span class="k mono">04</span><span><b style="color:var(--ink)">Burst to cloud on your terms.</b> Heavy steps can route out after de-identification — fully optional, always audited.</span></li>
+        </ul>
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="section" id="download" data-screen-label="Download">
+    <div class="wrap">
+      <div class="section-eyebrow reveal"><span class="bar"></span> Alpha build</div>
+      <h2 class="reveal">Run it on your <span class="grad">own machine.</span></h2>
+      <p class="lede reveal">Free during alpha. No account. No telemetry. Workflows are files on disk. Secrets stay in your OS keychain.</p>
+
+      <div class="dl-card reveal">
+        <div class="dl-top">
+          <div class="dl-platform">
+            <svg class="dl-apple" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M16.53 1.5c.08 1.2-.37 2.37-1.13 3.21-.8.86-2.08 1.52-3.34 1.42-.1-1.17.45-2.38 1.18-3.17.82-.89 2.2-1.55 3.29-1.46zM20.6 17.33c-.5 1.17-.75 1.7-1.4 2.73-.9 1.44-2.18 3.23-3.76 3.25-1.4.01-1.76-.92-3.67-.9-1.9.01-2.3.92-3.7.9-1.58-.02-2.8-1.64-3.7-3.07-2.5-4-2.77-8.7-1.22-11.2 1.1-1.77 2.84-2.81 4.47-2.81 1.66 0 2.7.91 4.08.91 1.33 0 2.15-.92 4.07-.92 1.46 0 3 .79 4.1 2.16-3.6 1.98-3.02 7.13.73 8.95z"/></svg>
+            <div class="dl-name-wrap">
+              <div class="dl-name">DrawLabs for macOS <span class="alpha-badge mono">ALPHA</span></div>
+              <div class="dl-meta mono">Apple Silicon &amp; Intel · macOS 12+ <span id="dl-version"></span></div>
+            </div>
+            <div class="dl-counter-inline">
+              <div class="dl-count mono"><span id="dl-counter">—</span></div>
+              <div class="dl-label mono"><span class="dot-live"></span> Downloads · live</div>
+            </div>
+          </div>
+          <a id="dl-btn" href="#" class="btn primary dl-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Download .dmg
+          </a>
+        </div>
+        <div class="dl-bar"><div id="dl-bar-fill" class="dl-bar-fill"></div></div>
+      </div>
+
+      <div class="dl-install reveal">
+        <div class="dl-install-title mono">INSTALLATION</div>
+        <ol class="dl-steps">
+          <li><span class="mono s-n">01</span> Download and open the <code>.dmg</code></li>
+          <li><span class="mono s-n">02</span> Drag <b>DrawLabs</b> to <b>Applications</b></li>
+          <li><span class="mono s-n">03</span> Before first launch, run in Terminal:
+            <code class="dl-cmd">xattr -cr /Applications/DrawLabs.app</code>
+            <span class="dl-hint">Alpha builds aren't yet signed — this removes the Gatekeeper quarantine flag. Apple Developer ID signing + notarization landing before public launch.</span>
+          </li>
+          <li><span class="mono s-n">04</span> Open DrawLabs — set profile, pick persona, start drawing</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final" data-screen-label="CTA">
+    <div class="wrap">
+      <h2 class="display reveal">Draw the pipeline.<br/><span class="grad">Ship in a sprint.</span></h2>
+      <p class="sub reveal">Public alpha for individual builders. Team rollouts, SSO, and deployment support by appointment with healthcare design partners.</p>
+      <div class="ctas reveal" style="display:flex;gap:12px;justify-content:center">
+        <a href="#download" class="btn primary">Download DrawLabs <span class="arrow">→</span></a>
+        <a href="mailto:ali@drawlabs.ai?subject=DrawLabs%20inquiry" class="btn">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap f-inner">
+      <div class="logo"><svg class="logo-mark" viewBox="0 0 64 64"><use href="#aperture"/></svg> DrawLabs</div>
+      <div class="mono" style="font-size:11px">© 2026 DrawLabs, Inc. · Built in SF</div>
+    </div>
+  </footer>
+
+  <!-- Alpha disclaimer modal -->
+  <div id="alpha-modal" class="alpha-modal" aria-hidden="true" role="dialog" aria-labelledby="alpha-modal-title">
+    <div class="alpha-modal-scrim" data-alpha-close></div>
+    <div class="alpha-modal-card" role="document">
+      <div class="alpha-modal-head">
+        <span class="alpha-badge mono">ALPHA</span>
+        <button class="alpha-modal-close" data-alpha-close aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <h3 id="alpha-modal-title" class="alpha-modal-title">This is an alpha release.</h3>
+      <p class="alpha-modal-body">
+        DrawLabs is pre-release software provided <b>as-is</b>, without warranty of any kind. Expect bugs, breaking changes, and incomplete features.
+      </p>
+      <ul class="alpha-modal-list">
+        <li>Not yet signed or notarized — you'll need to clear the Gatekeeper quarantine flag.</li>
+        <li>No production SLAs. Do not run on live patient data without your own review.</li>
+        <li>By continuing, you accept the risks of running early software.</li>
+      </ul>
+      <div class="alpha-modal-actions">
+        <button class="btn" data-alpha-close>Cancel</button>
+        <a class="btn primary" id="alpha-modal-confirm" href="#" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          I understand — download
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=7"></script>
+  <script src="nodes.js?v=4"></script>
+</body>
+</html>
